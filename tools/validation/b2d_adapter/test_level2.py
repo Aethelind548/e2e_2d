@@ -11,7 +11,6 @@ import unittest
 
 import numpy as np
 
-from tools.validation.b2d_adapter.validate_level2 import validate_route, validate_navsim_reference
 from tools.b2d_adapter import CandidateConfig, FrameReader, RouteIndex, AdapterError
 from tools.b2d_adapter.object_adapter import B2DObjectAdapter, candidate_causal_state
 from tools.b2d_adapter.navsim_bridge import to_partial_navsim
@@ -26,13 +25,20 @@ ROUTES = ["SignalizedJunctionRightTurn_Town12_Route5211_Weather1_02-11-08-13-13"
 class ActualBuilderTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        # This historical validator is required only by the explicitly enabled
+        # Level2 integration suite. Missing implementation must still fail when
+        # enabled, rather than preventing unrelated CPU tests from collecting.
+        from importlib import import_module
+        validator = import_module('tools.validation.b2d_adapter.validate_level2')
+        cls.validate_route = staticmethod(validator.validate_route)
+        cls.validate_navsim_reference = staticmethod(validator.validate_navsim_reference)
         cls.decoder = os.environ.get("B2D_LAZ_DECODER_PYTHON")
         if not cls.decoder:
             raise unittest.SkipTest("B2D_LAZ_DECODER_PYTHON missing; do not splice environments")
         cls.root = Path(os.environ.get("B2D_DATA_ROOT", str(ROOT.parent))) / "v1"
         if not all((cls.root / r / "anno").is_dir() for r in ROUTES):
             raise unittest.SkipTest("specified real R0/R2 not mounted")
-        cls.reports = [validate_route(cls.root / route, cls.decoder) for route in ROUTES]
+        cls.reports = [cls.validate_route(cls.root / route, cls.decoder) for route in ROUTES]
 
     def test_real_object_types_and_window(self):
         for report in self.reports:
@@ -122,7 +128,7 @@ class ActualBuilderTests(unittest.TestCase):
         log = root / "navsim_logs/mini/2021.06.09.12.39.51_veh-26_01943_02303.pkl"
         if not log.is_file():
             self.skipTest("one native NAVSIM reference log unavailable")
-        report = validate_navsim_reference(root, log)
+        report = self.validate_navsim_reference(root, log)
         self.assertEqual(report["status"], "pass")
         self.assertEqual(report["features"]["status_feature"]["shape"], [8])
         self.assertEqual(report["native_lidar_shape"][0], 6)

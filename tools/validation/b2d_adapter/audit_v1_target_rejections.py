@@ -286,7 +286,15 @@ def regression():
         'still_rejected':63-count,'note':'Remaining heads can be numerically valid while the relevant tilted actor remains semantically unresolved; do not train partial records'})
 
 
-def interface(pairs,cfg,model):
+def interface(pairs,cfg,model,*,output_path=None):
+    """Check the original network, optionally writing a distinct new report.
+
+    Explicit destinations must be new so recovery checks cannot replace frozen
+    baseline evidence. The default retains the historical caller contract.
+    """
+    destination=Path(output_path) if output_path is not None else OUT/'interface_validation.json'
+    if output_path is not None and destination.exists():
+        raise FileExistsError(destination)
     import torch
     from torch.utils.data import default_collate
     from tools.b2d_adapter.v1_builders import official_v1_module
@@ -300,7 +308,7 @@ def interface(pairs,cfg,model):
         losses=agent.compute_loss(features,targets,predictions)
     assert all(torch.isfinite(v).all() for v in predictions.values() if isinstance(v,torch.Tensor))
     assert all(torch.isfinite(torch.as_tensor(v)).all() for v in losses.values() if v is not None)
-    durable_json(OUT/'interface_validation.json',{'status':'pass','batch_size':2,'device':'cpu',
+    durable_json(destination,{'status':'pass','batch_size':2,'device':'cpu',
         'optimizer_steps':0,'checkpoint_used':False,'training_branch':True,'prediction_shapes':{k:list(v.shape) for k,v in predictions.items() if isinstance(v,torch.Tensor)},
         'feature_shapes':{k:list(v.shape) for k,v in features.items()},'target_shapes':{k:list(v.shape) for k,v in targets.items()},
         'weighted_official_losses':{k:float(v) for k,v in losses.items() if v is not None}})

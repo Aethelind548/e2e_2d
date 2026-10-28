@@ -6,7 +6,6 @@ import os
 from pathlib import Path
 import unittest
 
-from tools.validation.b2d_adapter.validate_native_builders import ROOT
 from tools.b2d_adapter import CandidateConfig, FrameReader, RouteIndex, AdapterError
 from tools.b2d_adapter.native_config import NativeBuilderConfig, CAMERA_POLICIES
 from tools.b2d_adapter.native_builders import B2DFeatureBuilder, B2DTrajectoryTargetBuilder
@@ -21,9 +20,9 @@ class NativeConfigTests(unittest.TestCase):
             NativeBuilderConfig("automatic")
 
     def test_version_hash_and_no_certification_override(self):
-        a, b = (NativeBuilderConfig(policy) for policy in CAMERA_POLICIES)
-        self.assertNotEqual(a.provenance()["policy_sha256"], b.provenance()["policy_sha256"])
-        self.assertFalse(a.provenance()["certified_ground_truth"])
+        configs = [NativeBuilderConfig(policy) for policy in CAMERA_POLICIES]
+        self.assertEqual(len({c.provenance()["policy_sha256"] for c in configs}), len(CAMERA_POLICIES))
+        self.assertTrue(all(not c.provenance()["certified_ground_truth"] for c in configs))
         with self.assertRaises(TypeError):
             NativeBuilderConfig(CAMERA_POLICIES[0], certified_ground_truth=True)
         with self.assertRaises(AdapterError):

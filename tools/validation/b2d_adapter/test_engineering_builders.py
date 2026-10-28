@@ -7,7 +7,6 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from tools.validation.b2d_adapter.validate_native_builders import ROOT
 from tools.b2d_adapter import AdapterError, CandidateConfig, FrameReader, RouteIndex
 from tools.b2d_adapter.coordinate_transform import ego_to_world, actor_to_reference
 from tools.b2d_adapter.native_builders import B2DFeatureBuilder, B2DTrajectoryTargetBuilder

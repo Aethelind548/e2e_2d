@@ -1,6 +1,10 @@
 """Recovery safety boundaries: independent heads and explicit storage pauses."""
 from types import SimpleNamespace
+import json
+from pathlib import Path
+import tempfile
 import unittest
+from unittest.mock import patch
 
 import torch
 
@@ -49,6 +53,55 @@ class HeadIsolation(unittest.TestCase):
         result,tensors=component_checks(self.builder(),object())
         self.assertTrue(result['full_training_eligible'])
         self.assertEqual(set(tensors),{'trajectory','agent_states','agent_labels','bev_semantic_map'})
+
+
+class InterfaceReportIsolation(unittest.TestCase):
+    """Exercise report routing only; this is not a real-network acceptance test."""
+
+    def run_interface(self, directory, output_path=None):
+        from tools.b2d_adapter import v1_builders
+        from tools.validation.b2d_adapter import audit_v1_target_rejections as audit
+
+        class Agent:
+            def train(self):
+                pass
+
+            def forward(self, features, targets):
+                return {'trajectory': targets['trajectory']}
+
+            def compute_loss(self, features, targets, predictions):
+                return {'loss': predictions['trajectory'].sum()}
+
+        pair = ({'status_feature': torch.zeros(8)}, {'trajectory': torch.zeros(8, 3)})
+        factory = SimpleNamespace(TransfuserAgent=lambda *args, **kwargs: Agent())
+        with patch.object(audit, 'OUT', directory), patch.object(v1_builders, 'official_v1_module', return_value=factory):
+            audit.interface([pair, pair], {'learning_rate': 1e-4}, object(), output_path=output_path)
+
+    def test_recovered_report_never_replaces_baseline(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp)
+            baseline = directory / 'interface_validation.json'
+            baseline.write_bytes(b'original frozen evidence')
+            recovered = directory / 'recovered.json'
+            self.run_interface(directory, recovered)
+            self.assertEqual(baseline.read_bytes(), b'original frozen evidence')
+            self.assertEqual(json.loads(recovered.read_text())['status'], 'pass')
+
+    def test_existing_explicit_report_is_rejected_before_network_work(self):
+        from tools.validation.b2d_adapter import audit_v1_target_rejections as audit
+
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / 'existing.json'
+            output.write_bytes(b'keep')
+            with self.assertRaises(FileExistsError):
+                audit.interface([], {}, None, output_path=output)
+            self.assertEqual(output.read_bytes(), b'keep')
+
+    def test_historical_default_destination_is_preserved(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp)
+            self.run_interface(directory)
+            self.assertEqual(json.loads((directory / 'interface_validation.json').read_text())['batch_size'], 2)
 
 
 if __name__=='__main__':unittest.main()

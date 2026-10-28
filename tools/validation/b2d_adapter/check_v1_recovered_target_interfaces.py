@@ -88,11 +88,7 @@ def main():
     image_init=initialization_manifest(cfg,model)
     assert len(pairs)>=2
     # Reuse the identical original forward/loss check; keep baseline evidence distinct.
-    baseline_report=OUT/'interface_validation.json'
-    previous=baseline_report.read_bytes()
-    interface(pairs,isolated,model)
-    (OUT/'recovered_interface_validation.json').write_bytes(baseline_report.read_bytes())
-    baseline_report.write_bytes(previous)
+    interface(pairs,isolated,model,output_path=OUT/'recovered_interface_validation.json')
     durable_json(OUT/'recovered_geometry_and_intersection.json',{
         'new_complete':len(rows),'previous_recovery_complete':len(old_rows),'combined_target_count':len(baseline)+len(all_recovery),
         'new_geometry_checked':records,'new_paired_dataset_reads':len(pairs),'previous_recovery_valid_pairs':valid_old,
