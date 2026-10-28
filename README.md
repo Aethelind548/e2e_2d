@@ -20,6 +20,7 @@
 | 问题与复现 | [问题记录](docs/问题记录.md) |
 | 本次发布范围与外部资产 | [发布清单](analysis/release_refactor/release_file_manifest.md) · [资源Manifest](tools/release/resources.json) |
 | 验收结果与合并限制 | [发布就绪结论](analysis/release_refactor/release_readiness.md) |
+| 当前代码RC与独立克隆验证 | [RC结论](analysis/release_refactor/phase3/release_candidate_summary.md) · [克隆测试](analysis/release_refactor/phase3/clean_clone_test_report.md) |
 | 文件维护规则 | [AGENTS.md](AGENTS.md) |
 
 官方V1按.gitmodules和Git树中的固定提交管理，已有scheduler兼容补丁独立保存在tools/release/patches/，不覆盖或重新克隆当前本地仓库。V2历史源码继续本地保留，来源提交及既有Python补丁记录在资源Manifest中。

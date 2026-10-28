@@ -1,4 +1,5 @@
 import math
+import os
 
 import numpy as np
 import pytest
@@ -98,7 +99,10 @@ def test_ade_fde_returns_none_for_nonfinite_candidate():
 
 
 def test_official_anchor_file_reports_no_zero_displacement_prior():
-    anchor = diag.load_anchor()
+    path = os.environ.get('B2D_OFFICIAL_ANCHOR')
+    if not path:
+        pytest.skip('Set B2D_OFFICIAL_ANCHOR for optional official asset inspection')
+    anchor = diag.load_anchor(path)
     assert anchor.shape == (20, 8, 2)
     endpoints = np.linalg.norm(anchor[:, -1, :], axis=-1)
     # Documented structural fact used by the report, not a training rule.

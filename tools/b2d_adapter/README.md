@@ -42,10 +42,7 @@
 
 ## 有限验证
 
-```bash
-python -m unittest tools.validation.b2d_adapter.test_v1_builders -v
-python -m tools.validation.b2d_adapter.validate_v1_training_preparation
-```
+现有长期回归仍在 `tools/validation/b2d_adapter/test_*.py` 原路径，实际命令统一见[快速启动](../../快速启动.md)。旧 `validate_v1_training_preparation.py` 仅绑定冻结训练准备样本，本轮从发布集合排除、本地原件保留，见[二轮审查](../../analysis/release_refactor/phase3/second_cleanup_review.md)。
 
 共享时钟/坐标/语义证据保留在 `analysis/data_interface_analysis/`；M2/M4/M5 与 Pilot 结果位于 `analysis/diffusiondrive_b2d_architecture/`。旧 V2 专用诊断入口与 BNDP 产物已出清；历史报告的旧产物链接只代表历史引用。
 

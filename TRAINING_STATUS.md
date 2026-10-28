@@ -8,6 +8,8 @@
 > **相关代码：** `tools/training/diffusiondrive_v1/status_experimental_train.py`（v6）、`route_split.py`、`tests/training/test_lr_scale_guard.py`、`/tmp/r2_supervisor.sh`、`/tmp/r2_stop_after_epoch21.py`。
 > **最后更新：** 2026-10-27。
 
+发布注记（2026-10-28）：本文历史实验配置可能只在本地及基线提交保留，Git代码RC不承诺携带短A/B/C等旧实验；具体范围见[二轮发布审查](analysis/release_refactor/phase3/second_cleanup_review.md)。R1/R2配置仍随Git保留，原冻结身份不变。
+
 ## 当前实验（R2，已暂停）
 
 | 项目 | 值 |

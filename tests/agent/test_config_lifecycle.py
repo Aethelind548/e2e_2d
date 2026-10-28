@@ -6,6 +6,7 @@ from enum import Enum
 import importlib
 import inspect
 import json
+import os
 from pathlib import Path
 import sys
 from types import ModuleType
@@ -19,7 +20,6 @@ from agent.config import AgentConfig, load_config
 from agent.planning.diffusiondrive_predictor import DiffusionDrivePredictor
 
 ROOT = Path(__file__).resolve().parents[2]
-LOCAL_B2D = Path('/home/aethelind/work/environment-build_test/Bench2Drive/leaderboard/leaderboard')
 
 
 def test_default_config_matches_json_and_does_not_load_model():
@@ -118,9 +118,12 @@ def test_vehicle_control_boundary_copies_validated_fields(fake_carla):
 
 
 def test_local_leaderboard_signatures_and_evaluator_order():
-    source = LOCAL_B2D / 'autoagents/autonomous_agent.py'
-    if not source.is_file():
-        pytest.skip(f"Local Leaderboard source unavailable: {source}")
+    location = os.environ.get('B2D_LEADERBOARD_SOURCE')
+    if not location:
+        pytest.skip('Set B2D_LEADERBOARD_SOURCE for optional real Leaderboard source parity')
+    local_b2d = Path(location)
+    source = local_b2d / 'autoagents/autonomous_agent.py'
+    assert source.is_file(), f'Explicit Leaderboard source unavailable: {source}'
     tree = ast.parse(source.read_text())
     base = next(node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == 'AutonomousAgent')
     methods = {node.name: node for node in base.body if isinstance(node, ast.FunctionDef)}
@@ -130,7 +133,7 @@ def test_local_leaderboard_signatures_and_evaluator_order():
                         'set_global_plan': ['self', 'global_plan_gps', 'global_plan_world_coord']}.items():
         assert [arg.arg for arg in methods[name].args.args] == names
         assert list(inspect.signature(getattr(Bench2DriveAgent, name)).parameters) == names
-    evaluator = (LOCAL_B2D / 'leaderboard_evaluator.py').read_text()
+    evaluator = (local_b2d / 'leaderboard_evaluator.py').read_text()
     positions = [evaluator.index(fragment) for fragment in ('agent_class_obj(args.host, args.port, args.debug)',
         'self.agent_instance.set_global_plan(', 'self.agent_instance.setup(', 'self.agent_instance.sensors()')]
     assert positions == sorted(positions)

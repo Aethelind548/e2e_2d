@@ -9,7 +9,6 @@ certification is inferred from complete offline expert trajectories.
 import argparse
 from collections import Counter
 from concurrent.futures import ProcessPoolExecutor
-import hashlib
 import json
 import math
 from pathlib import Path
@@ -27,21 +26,13 @@ from tools.b2d_adapter.experimental_route_navigation import (  # noqa: E402
 from tools.b2d_adapter.route_preview_contract import preview_command4  # noqa: E402
 from tools.b2d_adapter.experimental_route_preview import RoutePolyline  # noqa: E402
 from tools.validation.b2d.route_end_classifier import classify_failure, source_frames  # noqa: E402
-from tools.validation.b2d.route_truncation_root_cause import build_row  # noqa: E402
+from tools.validation.b2d.route_truncation_root_cause import build_row, sha256  # noqa: E402
 from tools.validation.b2d.route_navigation_preview import read_route, town_of  # noqa: E402
 
 VERSION = 'full-route-preview-audit-v1'
 TOWNS = {}
 SHARD_FILES = ('frame_route_preview.parquet', 'route_segment_manifest.jsonl',
                'manifest.json', 'DONE.json', 'failures.jsonl')
-
-
-def sha256(path):
-    digest = hashlib.sha256()
-    with Path(path).open('rb') as stream:
-        for block in iter(lambda: stream.read(1024 * 1024), b''):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def jsonl(path):

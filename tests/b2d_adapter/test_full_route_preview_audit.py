@@ -13,6 +13,20 @@ def _failure(frame):
             'preview_validity': 'FAIL'}
 
 
+def test_snapshot_hashes_content_and_preserves_source_metadata(tmp_path):
+    from hashlib import sha256
+    from tools.validation.b2d.full_route_preview_audit import snapshot
+    path = tmp_path / 'manifest.json'
+    payload = b'{"contract":"frozen"}\n'
+    path.write_bytes(payload)
+    before = path.stat()
+    result = snapshot(tmp_path)['manifest.json']
+    assert result == {'sha256': sha256(payload).hexdigest(),
+                      'size': len(payload), 'mtime_ns': before.st_mtime_ns}
+    assert path.read_bytes() == payload
+    assert path.stat().st_mtime_ns == before.st_mtime_ns
+
+
 def test_nonzero_source_frames_convert_segment_indices_without_guessing():
     segments = [{'segment_id': 0, 'start_frame': 0, 'end_frame': 2}]
     converted = segment_frame_bounds(segments, [40, 42, 44])
