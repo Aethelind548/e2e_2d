@@ -1,0 +1,29 @@
+# Keep the build context small. The working tree holds 900+ GB of feature tensors
+# and checkpoints; those are mounted at run time and never copied into the image.
+# Note: .dockerignore has no inline comment syntax, every line is a pattern.
+
+.git/
+**/.git/
+.gitignore
+
+# Host-side runtime state and evidence output
+outputs/
+data/
+datasets/
+undo/
+analysis/
+docs/
+
+# Build artefacts and caches
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+
+# Large or machine-specific leftovers
+**/*.ckpt
+**/*.log
+**/*.jsonl
+
+# Vendor exactly one official repository, drop any sibling clones
+repositories/*
+!repositories/DiffusionDrive
