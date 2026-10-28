@@ -1,0 +1,84 @@
+{
+  "schema": "v1-camera-legacy-compatibility-v1",
+  "historical_configs": {
+    "967a2be11164be6e5bebab62d991142df9c9ff379fb802ab310c41830a060773": {
+      "path": "tools/training/diffusiondrive_v1/baseline.json",
+      "file_sha256": "7169a88b0155a217ee0cc0a6176d8e229e55d392c77de9cd6d1a263663c6dc95",
+      "camera_policy": "navsim-pixel-crop-v1"
+    },
+    "aad7971eb92e962b7264ddecdace314a9dfc954a7b73a32b806f5ae1b7cefcdf": {
+      "path": "tools/training/diffusiondrive_v1/m1_subset.json",
+      "file_sha256": "eb580e4af55157ab96a09b5982fec9ba3c78f8177d1ab1dfe90814b80b366432",
+      "camera_policy": "navsim-pixel-crop-v1"
+    },
+    "439b2f1d06d6f71b023563517cfea2fe90280c9c7bb6721ae76bfa383c3dea29": {
+      "path": "tools/training/diffusiondrive_v1/m2_subset.json",
+      "file_sha256": "9b60417b2a26ff97402e2aa70c1fdc51c265ac925ed07abd3a591d873882ce37",
+      "camera_policy": "navsim-pixel-crop-v1"
+    },
+    "c932cac57364fd0fe4e2e18d1330cde19a8581b65945564a6fabcd8d76668d48": {
+      "path": "tools/training/diffusiondrive_v1/m4_subset.json",
+      "file_sha256": "f44b2da4e9a9cc7214c2557f812c86ae8b4d8d84d582f24fffce95735c476771",
+      "camera_policy": "navsim-pixel-crop-v1"
+    },
+    "72afc3d62efa203049217bd93087cab898239c613f379cc9b2e1b91eeb79ccef": {
+      "path": "tools/training/diffusiondrive_v1/pilot_original.json",
+      "file_sha256": "3c160e88b337ce8d0ddfdb450264b88516e36756a63be4ce4d4347914e299cf6",
+      "camera_policy": "navsim-pixel-crop-v1"
+    }
+  },
+  "producer_bridges": [
+    {
+      "historical_producer_sha256": "55f5d2e5a6fcca10c99d8279b1540d72c7891e10dfb7f0c7f6047d010f777f96",
+      "reviewed_current_producer_sha256": "655ce0c1e272624a4e492743fdb5073f5878aca7400cce1b62e9478ac53e38d0",
+      "camera_policy": "navsim-pixel-crop-v1",
+      "label_rules": {
+        "name": "v1_original_7class",
+        "version": "original-v2",
+        "guardrail": "none",
+        "actor_projection": "planar",
+        "actor_floor": "none",
+        "road_support_distance_m": 2.0,
+        "road_support_z_spread_m": 0.75,
+        "actor_deck_clearance_m": 1.0,
+        "guardrail_deck_clearance_m": 0.5
+      },
+      "scope": "exact historical producer; unchanged legacy camera branch and targets, five-real-frame equality checked in camera_crop_fix"
+    },
+    {
+      "historical_producer_sha256": "ef44fb49e47864186cf174ea3d2f64beae07962c52265c92238e39b73ce70ebf",
+      "reviewed_current_producer_sha256": "df6f3d03574eb0168a0de15ffd5efbde08f04765805804cc0e94fee9f8b53852",
+      "camera_policy": "navsim-pixel-crop-v1",
+      "label_rules": {
+        "name": "v1_semantic_enriched",
+        "version": "m4-v1",
+        "guardrail": "flat-pivot-vertical-surface-v1",
+        "actor_projection": "tilted-world-xy-hull-v1",
+        "actor_floor": "diagnose",
+        "road_support_distance_m": 2.0,
+        "road_support_z_spread_m": 0.75,
+        "actor_deck_clearance_m": 1.0,
+        "guardrail_deck_clearance_m": 0.5
+      },
+      "scope": "exact historical producer; unchanged legacy camera branch and targets, five-real-frame equality checked in camera_crop_fix"
+    },
+    {
+      "historical_producer_sha256": "6400c3bb1a3f9eb81add3f9f94f16d1bf3122763a6ce432dceed30e9afd761e7",
+      "reviewed_current_producer_sha256": "655ce0c1e272624a4e492743fdb5073f5878aca7400cce1b62e9478ac53e38d0",
+      "camera_policy": "navsim-pixel-crop-v1",
+      "label_rules": {
+        "name": "v1_original_7class",
+        "version": "original-v2",
+        "guardrail": "none",
+        "actor_projection": "planar",
+        "actor_floor": "none",
+        "road_support_distance_m": 2.0,
+        "road_support_z_spread_m": 0.75,
+        "actor_deck_clearance_m": 1.0,
+        "guardrail_deck_clearance_m": 0.5
+      },
+      "scope": "exact historical producer; unchanged legacy camera branch and targets, five-real-frame equality checked in camera_crop_fix"
+    }
+  ],
+  "evidence": "/home/aethelind/work/e2e_ad/analysis/diffusiondrive_b2d_architecture/v1_validation/camera_crop_fix/results.json"
+}

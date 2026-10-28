@@ -1,0 +1,53 @@
+{
+  "schema": "b2d-v1-shared-features-storage-v1",
+  "dataset_id": "Bench2Drive-V0.0.4-local-v1",
+  "producer_sha256": "79d47303b6c3549102fe7b8dfa7b7df0c9575de4addea7f6ec94e21e716a5ce9",
+  "roots": {
+    "cache_a": {
+      "spec": {
+        "mountpoint": "/run/media/aethelind/48EA01DBEA01C5E2",
+        "uuid": "48EA01DBEA01C5E2",
+        "fstype": "ntfs3",
+        "budget_gib": 450,
+        "minimum_free_gib": 100,
+        "path": "/run/media/aethelind/48EA01DBEA01C5E2/diffusiondrive_v1_tensors_YMTC/features"
+      },
+      "storage_owner_id": "58a9fa97d472ecfd99d3c8c7d2ff4a71",
+      "members": [
+        {
+          "index_id": "c2bbd75c63204569ad88aec4d8dfa5b6",
+          "state": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/features_service",
+          "job": "baseline"
+        },
+        {
+          "index_id": "0c178f09a28b4bde8f2340c6685c94a3",
+          "state": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/features_jobs/remaining_20261015",
+          "job": "remaining"
+        }
+      ]
+    },
+    "cache_b": {
+      "spec": {
+        "mountpoint": "/run/media/aethelind/PSSD",
+        "uuid": "F8E4AE34E4ADF552",
+        "fstype": "ntfs3",
+        "budget_gib": 650,
+        "minimum_free_gib": 100,
+        "path": "/run/media/aethelind/PSSD/diffusiondrive_v1_tensors_PSSD/features"
+      },
+      "storage_owner_id": "0f3f4d2b6be56a7cc109c6bb2a9ce929",
+      "members": [
+        {
+          "index_id": "c2bbd75c63204569ad88aec4d8dfa5b6",
+          "state": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/features_service",
+          "job": "baseline"
+        },
+        {
+          "index_id": "0c178f09a28b4bde8f2340c6685c94a3",
+          "state": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/features_jobs/remaining_20261015",
+          "job": "remaining"
+        }
+      ]
+    }
+  }
+}

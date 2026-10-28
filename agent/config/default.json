@@ -1,0 +1,29 @@
+{
+  "sensors": {"specifications": [], "required_ids": [], "buffer_size": 3, "alignment_policy": null},
+  "ego_state": {
+    "policy": null, "gnss_id": null, "imu_id": null, "speed_id": null,
+    "lat_ref_deg": null, "lon_ref_deg": null, "vehicle_type": null,
+    "geometry_policy": null, "planar_assumption": false
+  },
+  "features": {"camera_policy": null, "lidar_policy": null, "state_policy": null},
+  "navigation": {
+    "status_policy": "b2d-route-preview-20m-v1",
+    "preview_m": 20.0, "lateral_threshold_m": 2.0, "max_projection_m": 5.0,
+    "motion_dt_s": 0.1, "motion_dt_tolerance_s": 0.01, "motion_max_gap_s": 0.5,
+    "require_rear_pose_policy": true
+  },
+  "planner": {
+    "kind": "diffusiondrive_v1", "device": null,
+    "checkpoint_path": null, "plan_anchor_path": null, "backbone_path": null,
+    "num_poses": null, "interval_s": null, "output_frame": "unknown",
+    "mock_speed_mps": null
+  },
+  "controller": {
+    "longitudinal_pid": {
+      "kp": null, "ki": null, "kd": null,
+      "output_min": null, "output_max": null, "integral_limit": null
+    },
+    "lateral_method": null, "wheelbase_m": null, "target_speed_policy": null
+  },
+  "runtime": {"logger_name": "diffusiondrive.agent", "log_level": "INFO"}
+}

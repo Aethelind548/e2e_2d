@@ -1,0 +1,7 @@
+{
+  "schema": "m4-reviewed-original-producer-bridge-v1",
+  "historical_producer_sha256": "55f5d2e5a6fcca10c99d8279b1540d72c7891e10dfb7f0c7f6047d010f777f96",
+  "reviewed_current_producer_sha256": "6400c3bb1a3f9eb81add3f9f94f16d1bf3122763a6ce432dceed30e9afd761e7",
+  "evidence": "/home/aethelind/work/e2e_ad/analysis/diffusiondrive_b2d_architecture/v1_validation/m4/results.json",
+  "scope": "M2 producer only; 42 original pixel comparisons, immutable numeric artifacts; never enriched"
+}

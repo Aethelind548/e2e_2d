@@ -1,0 +1,16 @@
+{
+  "schema": "b2d-v1-feature-jobs-manifests-v1",
+  "producer_sha256": "79d47303b6c3549102fe7b8dfa7b7df0c9575de4addea7f6ec94e21e716a5ce9",
+  "jobs": [
+    {
+      "job_id": "baseline",
+      "config": "tools/training/diffusiondrive_v1/features_cache.json",
+      "manifest": "outputs/diffusiondrive_v1/features_service/features_manifest.json"
+    },
+    {
+      "job_id": "remaining_20261015",
+      "config": "tools/training/diffusiondrive_v1/features_remaining_20261015.json",
+      "manifest": "outputs/diffusiondrive_v1/features_jobs/remaining_20261015/features_manifest.json"
+    }
+  ]
+}

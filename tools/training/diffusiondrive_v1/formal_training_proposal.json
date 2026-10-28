@@ -1,0 +1,85 @@
+{
+  "schema": "v1-formal-training-proposal-v1",
+  "status": "pilot_validated_recipe_data_scale_not_final",
+  "execute_training": false,
+  "validated_configuration": "tools/training/diffusiondrive_v1/pilot_original.json",
+  "model_repository": "repositories/DiffusionDrive",
+  "label_rules": "v1_original_7class",
+  "class_ids": [
+    "Background",
+    "Road",
+    "Walkway",
+    "Centerline",
+    "Static",
+    "Vehicle",
+    "Pedestrian"
+  ],
+  "initialization": {
+    "image_pretrained": {
+      "path": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/assets/resnet34_a1_0-46f8f793.pth",
+      "sha256": "46f8f7930534e471b9a139b278896db5d11d17b8ea3fcc90ad43deed9e5e27d7",
+      "source": "https://github.com/huggingface/pytorch-image-models/releases/download/v0.1-rsb-weights/resnet34_a1_0-46f8f793.pth"
+    },
+    "anchor": {
+      "path": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/assets/official_kmeans_navsim_traj_20.npy",
+      "sha256": "2d341e525d7882ee5e916c67d37bea571e4c793cf801f0fff3eff59d38b20d98"
+    }
+  },
+  "optimizer": {
+    "type": "official AdamW",
+    "learning_rate": 0.0006,
+    "weight_decay": "official config"
+  },
+  "scheduler": {
+    "type": "official WarmupCosLR",
+    "warmup_epochs": 3,
+    "epochs": 100,
+    "min_lr": 1e-06
+  },
+  "batch_size": 2,
+  "precision": "32-true",
+  "num_workers": 2,
+  "prefetch_factor": 2,
+  "seed": 20261014,
+  "evaluation_noise_seed": 137,
+  "validation": {
+    "mode": "fixed noise target-free trajectory ADE/FDE plus official losses",
+    "best_monitor": "val/loss",
+    "pilot_interval_steps": 64,
+    "formal_interval": "once per epoch, with periodic checkpoint every 500 steps"
+  },
+  "data_expansion": {
+    "next_target_accepted_windows": [
+      2000,
+      5000
+    ],
+    "source": "explicit current Route Manifest; freeze Town/Route grouping before preparing",
+    "keep_validation_towns": [
+      "Town07",
+      "Town13",
+      "Town15"
+    ],
+    "correlation": "overlapping windows are not independent samples; never split frames of one Route across train/validation",
+    "reject_policy": "record errors; no background fallback or training-time skipping"
+  },
+  "storage": {
+    "pilot_mode": "complete prepared tensors + independent original BEV cache",
+    "measured_tensor_bytes_per_sample": 3673809.0,
+    "estimated_2000_to_5000_frame_tensor_gib": [
+      6.843002513051033,
+      17.107506282627583
+    ],
+    "full_dataset_mode": "undecided; raw worker=0 is measured slow, full tensor duplication requires capacity assessment",
+    "default_full_dataset_precompute": false
+  },
+  "pilot_weights": "diagnostic baseline checkpoints, not converged formal weights",
+  "resume_policy": "exact dataset/map/producer/initialization/optimizer contract required; changing dataset means a new run, not --resume",
+  "remaining_issues": [
+    "Town02 road16 lane-3 sidewalk self-intersection rejected in four newly selected windows.",
+    "Held-out pilot BEV labels contain zero pedestrian-positive frames; add a verified pedestrian Route in held-out Towns before formal semantic evaluation.",
+    "320 steps cover fewer than two training epochs; the original three-epoch LR warmup is not completed.",
+    "Training trajectory loss trend needs larger diverse windows and more epochs; no convergence claim.",
+    "Host CUDA works despite NVML mismatch; sandbox has no CUDA/IPC. GPU runtime visibility must be checked per launch.",
+    "CARLA Agent/closed-loop metrics and full-dataset tensor service are not implemented in this task."
+  ]
+}

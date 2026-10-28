@@ -1,0 +1,69 @@
+{
+  "lidar_decoder_python": "/home/aethelind/miniconda3/envs/b2d_zoo/bin/python",
+  "plan_anchor_path": "analysis/bndp3_original_il/sources/official_kmeans_navsim_traj_20.npy",
+  "expected_anchor_sha256": "2d341e525d7882ee5e916c67d37bea571e4c793cf801f0fff3eff59d38b20d98",
+  "bkb_path": "outputs/diffusiondrive_v1/assets/resnet34_a1_0-46f8f793.pth",
+  "expected_image_sha256": "46f8f7930534e471b9a139b278896db5d11d17b8ea3fcc90ad43deed9e5e27d7",
+  "image_pretrained_url": "https://github.com/huggingface/pytorch-image-models/releases/download/v0.1-rsb-weights/resnet34_a1_0-46f8f793.pth",
+  "learning_rate": 0.0006,
+  "batch_size": 1,
+  "threads": 4,
+  "seed": 20261013,
+  "data": {
+    "train": [
+      {
+        "route": "/data/datasets/Bench2Drive-V0.0.4/v1/ConstructionObstacleTwoWays_Town13_Route29427_Weather1_02-08-03-13-07",
+        "frames": [
+          80,
+          81
+        ]
+      },
+      {
+        "route": "/data/datasets/Bench2Drive-V0.0.4/v1/ParkingCrossingPedestrian_Town05_Route24609_Weather16_02-07-14-09-58",
+        "frames": [
+          80,
+          81
+        ]
+      }
+    ],
+    "validation": [
+      {
+        "route": "/data/datasets/Bench2Drive-V0.0.4/v1/ConstructionObstacleTwoWays_Town13_Route29359_Weather8_02-07-10-26-36",
+        "frames": [
+          80,
+          81
+        ]
+      },
+      {
+        "route": "/data/datasets/Bench2Drive-V0.0.4/v1/PedestrianCrossing_Town05_Route27646_Weather14_02-07-14-38-24",
+        "frames": [
+          40,
+          41
+        ]
+      }
+    ]
+  },
+  "map_paths": {
+    "Town05": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town05.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "7edc53b0be840e177598da7a4ed9571146d7b2595ce280d154c90f92e8a48851"
+    },
+    "Town13": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/Town13/OpenDrive/Town13.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "5354326f2fe4d26f0dcb5c82acf462257e638278363ab7adecb97ec3aa1f426f"
+    }
+  },
+  "bev_cache_dir": "outputs/diffusiondrive_v1/m1_bev_cache",
+  "output_dir": "outputs/diffusiondrive_v1/m1_fit",
+  "training": {
+    "max_steps": 16,
+    "max_epochs": 100,
+    "num_workers": 0,
+    "precision": "32-true",
+    "validation_every_epochs": 1,
+    "checkpoint_every_steps": 4
+  },
+  "evaluation_noise_seed": 137
+}

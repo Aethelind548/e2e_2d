@@ -1,0 +1,145 @@
+{
+  "schema": "status-experimental-train-v6",
+  "experiment_scope": "OFFLINE_ORACLE_ROUTE_IL",
+  "status": "PREPARED",
+  "created": "2026-10-27T00:45:00+08:00",
+  "short_run_arm": "R2-cos100-ema5ep-bevw3",
+  "purpose": "Second-stage continuation of R1, resumed from the R1 last.ckpt at the epoch-3 boundary. Three changes: (1) the cosine horizon is widened from 25 to 100 epochs so the learning rate decays slowly instead of bottoming out before the run ends, (2) the EMA window is widened from 0.4 to 5 epochs so the average can smooth epoch-to-epoch drift and not just intra-epoch noise, (3) the BEV branch weight is raised 3x so that branch stops being gradient-starved.",
+  "hypothesis": {
+    "cos100": "the 25-epoch cosine reached min_lr while val/paper_loss was still falling or flat; a 100-epoch horizon keeps the effective learning rate in a productive band for far longer, which is the regime the official recipe assumes",
+    "ema5ep": "decay 0.999 only averages the last 1,000 optimizer steps (0.40 epoch at 2,504 steps/epoch), so it cannot damp the epoch-level swings observed in cos50 (76.49 / 76.77 / 77.06 / 75.89 / 77.17 / 78.26 / 79.39). A 5-epoch window (12,520 steps, decay 0.99992) can",
+    "bevw3": "bev_head receives only 0.60% of the gradient norm while contributing 8.9% of the weighted loss, because the head has far fewer parameters than the trajectory branch. Raising the branch weight is the only lever that changes the gradient share; the paramwise lr only rescales the resulting step"
+  },
+  "parent_experiment": "status_r1_ema_bevlr5e1_lr3e4_20261026",
+  "resume_source": "checkpoints/last.ckpt of the parent experiment (epoch-2 end, step 7512); the SHA256 is pinned on the command line via --resume-sha256",
+  "comparable_scope": {
+    "note": "Absolute val/paper_loss is NOT comparable with R1 or cos50 after the loss-weight change: bev_semantic_weight 14 -> 42 multiplies val/paper_bev_semantic_loss and the total by construction. Branch-level raw values remain the comparable quantity.",
+    "per_epoch_raw_formula": "raw_bev = val/paper_bev_semantic_loss / bev_semantic_weight; the same de-weighting applies to trajectory/agent branches",
+    "acceptance_basis": "closed-loop evaluation quality, plus branch-level raw loss trends, not the absolute weighted total"
+  },
+  "only_three_changes": {
+    "1_cos100": {
+      "max_epochs": 100,
+      "scheduler_epochs": 100,
+      "note": "warmup stays at 3 epochs; the cosine now spans ep3-ep100 instead of ep3-ep25, so at ep25 the LR is still around 2.4e-4 instead of bottoming at 1e-6"
+    },
+    "2_ema5ep": {
+      "ema_enabled": true,
+      "ema_decay": 0.99992,
+      "window_steps": 12520,
+      "window_epochs": 5.0,
+      "note": "the decay now comes from this config, not from the checkpoint payload; EMACallback re-asserts the configured value after load_state_dict"
+    },
+    "3_bev_weight": {
+      "loss_weights": {
+        "bev_semantic_weight": 42.0
+      },
+      "note": "official value 14.0 raised 3x; trajectory (12), agent_class (10) and agent_box (1) are untouched so the other branches keep their relative balance"
+    }
+  },
+  "unchanged_from_parent": [
+    "official V1 model architecture, dataset, split, 8:1:1 seed-0 Route split and tail policy untouched",
+    "batch 16 x accumulate 4 = effective 64, clip 1000, num_workers 8 untouched",
+    "base learning_rate 3e-4 with warmup 3 epochs and min_lr 1e-6",
+    "paramwise policy unchanged: base 1.0x, image_encoder 0.5x, bev_semantic_head 0.5x",
+    "BF16 convolution engineering policy; loss and eval stay FP32",
+    "full 17,191-row validation every epoch; monitor val/paper_loss",
+    "Test split frozen and never loaded during training or checkpoint selection"
+  ],
+  "dataset_manifest": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_dataset_manifest.json",
+  "sample_index": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_sample_index.jsonl",
+  "sample_index_sha256": "0d0ed97fdb146634ea09eba46ba483bbc091707a2ca021f05aee67a60daf4f4d",
+  "dataset_split_manifest": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/dataset_split_manifest.json",
+  "dataset_split_sha256": "ab05d947aba869c26752d231bc7f652a73f75a8d5feb9526ef83d9a0333d5925",
+  "base_config": "/home/aethelind/work/e2e_ad/tools/training/diffusiondrive_v1/baseline_bs8_acc8_lr6e4_official_route_split.json",
+  "output_dir": "/run/media/aethelind/PSSD/diffusiondrive_v1_experiments/status_r1_ema_bevlr5e1_lr3e4_20261026",
+  "status_rule": "b2d-route-preview-20m-v1",
+  "seed": 0,
+  "batch_size": 16,
+  "accumulate_grad_batches": 4,
+  "effective_batch_size": 64,
+  "num_workers": 8,
+  "prefetch_factor": 2,
+  "learning_rate": 0.0003,
+  "paramwise_lr_scale": true,
+  "opt_paramwise_cfg": {
+    "name": {
+      "image_encoder": {
+        "lr_mult": 0.5
+      },
+      "bev_semantic_head": {
+        "lr_mult": 0.5
+      }
+    }
+  },
+  "loss_weights": {
+    "bev_semantic_weight": 42.0
+  },
+  "ema_enabled": true,
+  "ema_decay": 0.99992,
+  "gradient_clip_val": 1000.0,
+  "gradient_log_every_steps": 10,
+  "max_epochs": 100,
+  "scheduler_epochs": 100,
+  "log_every_n_steps": 10,
+  "progress_every_steps": 50,
+  "checkpoint_monitor": "val/paper_loss",
+  "checkpoint_keep": 10,
+  "precision_policy": "bf16-conv-fp32-fusion-heads-loss-eval-v1",
+  "validation": {
+    "full": true,
+    "frequency": "every epoch",
+    "rows": 17191,
+    "subset": null,
+    "objective": "paper-v1: forward_train branch, frozen dropout, seed=epoch*100003+batch_idx",
+    "weights": "EMA shadow (decay 0.99992, 5-epoch window, config wins over checkpoint)",
+    "extra_cost": "one extra weight copy per validation, plus one 2-step diffusion forward per batch"
+  },
+  "test": {
+    "rows": 16202,
+    "usage": "not loaded during training, checkpoint selection or tuning"
+  },
+  "checkpoint_semantics": {
+    "best-*.ckpt / last.ckpt": "raw weights, consistent with the saved optimizer state; the monitored score was produced by the EMA weights",
+    "ema-*.ckpt": "smoothed weights only (schema status-ema-weights-v1); use these for evaluation or deployment",
+    "resume": "always from last.ckpt or pause-*.ckpt (raw weights); the EMA shadow is restored from callback state, but the decay always follows this config"
+  },
+  "acceptance": {
+    "cos100": [
+      "the learning rate is still above 1e-4 at epoch 50 (a 25-epoch horizon would already be at ~1e-5 there)",
+      "val/paper_loss keeps falling after epoch 25 instead of bottoming out"
+    ],
+    "ema5ep": [
+      "epoch-to-epoch standard deviation of val/paper_loss over a rolling 5-epoch window is materially lower than the cos50 reference window (sigma 0.54)",
+      "no monotonic multi-epoch rise comparable to cos50 ep29-31 (+2.2 over three epochs)"
+    ],
+    "bevw3": [
+      "bev_head gradient share rises from 0.60% to roughly 1.5-2%",
+      "raw_bev = val/paper_bev_semantic_loss / 42 keeps falling; the reference best from cos50 is raw 0.406 (= 5.68/14)",
+      "val/paper_bev_semantic_loss must be de-weighted before any comparison with earlier runs"
+    ],
+    "no_collateral_damage": [
+      "raw_trajectory and raw_agent_box do not regress by more than 5% versus their R1 values at the same epoch",
+      "train/val gap does not widen beyond the R1 baseline"
+    ],
+    "overall": [
+      "closed-loop evaluation improves over both R1 and cos50 checkpoints",
+      "val/ade_m keeps falling (R1 ep1 was 1.759 m; cos50 best was 1.411 m)"
+    ]
+  },
+  "stop_or_investigate_if": [
+    "val/paper_loss rises for three consecutive epochs",
+    "de-weighted raw_bev exceeds 1.5x its best-so-far value",
+    "agent or trajectory branch raw loss exceeds 1.5x its best-so-far value",
+    "non-finite loss or gradient norm",
+    "worker process count grows beyond 9 (persistent-worker leak)",
+    "available memory drops below 3 GB"
+  ],
+  "guardrails": [
+    "exactly three variables changed versus R1: cosine horizon 25 -> 100, EMA decay 0.999 -> 0.99992, bev_semantic_weight 14 -> 42",
+    "official repository stays byte-identical (only the pre-existing scheduler verbose patch)",
+    "the loss-weight change makes absolute val/paper_loss incomparable with R1 and cos50; all cross-run statements use de-weighted branch values",
+    "EMA weights are used for validation; checkpoints keep raw weights so resume stays consistent",
+    "Test split frozen and never loaded"
+  ]
+}

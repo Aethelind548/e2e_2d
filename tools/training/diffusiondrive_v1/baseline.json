@@ -1,0 +1,25 @@
+{
+  "route": "/data/datasets/Bench2Drive-V0.0.4/v1/SignalizedJunctionRightTurn_Town12_Route5211_Weather1_02-11-08-13-13",
+  "start_frame": 80,
+  "sample_count": 2,
+  "lidar_decoder_python": "/home/aethelind/miniconda3/envs/b2d_zoo/bin/python",
+  "plan_anchor_path": "analysis/bndp3_original_il/sources/official_kmeans_navsim_traj_20.npy",
+  "expected_anchor_sha256": "2d341e525d7882ee5e916c67d37bea571e4c793cf801f0fff3eff59d38b20d98",
+  "bkb_path": "outputs/diffusiondrive_v1/assets/resnet34_a1_0-46f8f793.pth",
+  "learning_rate": 0.0006,
+  "output_dir": "analysis/diffusiondrive_b2d_architecture/v1_validation",
+  "expected_image_sha256": "46f8f7930534e471b9a139b278896db5d11d17b8ea3fcc90ad43deed9e5e27d7",
+  "image_pretrained_url": "https://github.com/huggingface/pytorch-image-models/releases/download/v0.1-rsb-weights/resnet34_a1_0-46f8f793.pth",
+  "routes": [
+    "/data/datasets/Bench2Drive-V0.0.4/v1/SignalizedJunctionRightTurn_Town12_Route5211_Weather1_02-11-08-13-13",
+    "/data/datasets/Bench2Drive-V0.0.4/v1/SignalizedJunctionLeftTurn_Town12_Route4013_Weather1_02-13-13-37-52"
+  ],
+  "map_paths": {
+    "Town12": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/Town12/OpenDrive/Town12.xodr"
+  },
+  "batch_size": 1,
+  "threads": 4,
+  "seed": 20261013,
+  "label_output_dir": "analysis/diffusiondrive_b2d_architecture/v1_validation/full_il_labels",
+  "training_output_dir": "outputs/diffusiondrive_v1/smoke_3steps"
+}

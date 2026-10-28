@@ -1,0 +1,12 @@
+# Generated local state; this does not delete or relocate existing files.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.DS_Store
+/outputs/
+/tmp/
+# Do not blanket-ignore analysis, configuration, frozen manifests, or undo originals.

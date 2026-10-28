@@ -1,0 +1,151 @@
+{
+  "lidar_decoder_python": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/assets/laz_decoder_env/bin/python",
+  "plan_anchor_path": "outputs/diffusiondrive_v1/assets/official_kmeans_navsim_traj_20.npy",
+  "expected_anchor_sha256": "2d341e525d7882ee5e916c67d37bea571e4c793cf801f0fff3eff59d38b20d98",
+  "bkb_path": "outputs/diffusiondrive_v1/assets/resnet34_a1_0-46f8f793.pth",
+  "expected_image_sha256": "46f8f7930534e471b9a139b278896db5d11d17b8ea3fcc90ad43deed9e5e27d7",
+  "image_pretrained_url": "https://github.com/huggingface/pytorch-image-models/releases/download/v0.1-rsb-weights/resnet34_a1_0-46f8f793.pth",
+  "learning_rate": 0.0006,
+  "batch_size": 2,
+  "threads": 4,
+  "seed": 20261014,
+  "data": {
+    "train": [
+      {
+        "route": "/data/datasets/Bench2Drive-V0.0.4/v1/DynamicObjectCrossing_Town01_Route24211_Weather6_02-10-10-19-39",
+        "frames": [
+          80,
+          81,
+          214
+        ]
+      },
+      {
+        "route": "/data/datasets/Bench2Drive-V0.0.4/v1/HazardAtSideLane_Town03_Route25252_Weather4_02-07-05-33-23",
+        "frames": [
+          80,
+          81
+        ]
+      },
+      {
+        "route": "/data/datasets/Bench2Drive-V0.0.4/v1/BlockedIntersection_Town04_Route27419_Weather3_02-08-08-11-38",
+        "frames": [
+          80
+        ]
+      },
+      {
+        "route": "/data/datasets/Bench2Drive-V0.0.4/v1/ControlLoss_Town02_Route93_Weather14_02-10-01-33-39",
+        "frames": [
+          80
+        ]
+      }
+    ],
+    "validation": [
+      {
+        "route": "/data/datasets/Bench2Drive-V0.0.4/v1/PedestrianCrossing_Town05_Route27646_Weather14_02-07-14-38-24",
+        "frames": [
+          40
+        ]
+      },
+      {
+        "route": "/data/datasets/Bench2Drive-V0.0.4/v1/ConstructionObstacleTwoWays_Town13_Route29359_Weather8_02-07-10-26-36",
+        "frames": [
+          80,
+          81
+        ]
+      }
+    ]
+  },
+  "map_paths": {
+    "Town01": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town01.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "97a7f6ac67812567e5c8ee0599cd823b23f80f30f3f97c502212e38b72e2b709"
+    },
+    "Town02": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town02.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "953c05f17def231239ffcadba3307628a82d0d335b67b4e29c3098f7aed1dd7d"
+    },
+    "Town03": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town03.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "abf177bcd9b66cfefb7ac4919f6456815f1384f4229f1343c8a6a90bbb7713c9"
+    },
+    "Town04": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town04.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "4dddd1560ab7812b0e89cd4a523d8b6f2b93947eafb496d9eeb83cc772116c85"
+    },
+    "Town05": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town05.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "7edc53b0be840e177598da7a4ed9571146d7b2595ce280d154c90f92e8a48851"
+    },
+    "Town06": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town06.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "a90b613175fa837fdc128ddfaf5ddad25797b128fdbd8cd945974bc21a60496e"
+    },
+    "Town07": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town07.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "be730652769e993e27f748ba5793dba9e49d299205146a7a8db0bcd17af877bf"
+    },
+    "Town10HD": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town10HD.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "5d883b799f634030af92be1e9d79d107845540ba04338e8c60e095be1aef7be7"
+    },
+    "Town11": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/Town11/OpenDrive/Town11.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "52ffa8412425b87394afa6a37bf0b688c0584a24df6ae88fea53866acb91e222"
+    },
+    "Town12": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/Town12/OpenDrive/Town12.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "26fa53d4902ac3397d35f948969f0c77c1bf023755ede2c67edf00bef817151f"
+    },
+    "Town13": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/Town13/OpenDrive/Town13.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "5354326f2fe4d26f0dcb5c82acf462257e638278363ab7adecb97ec3aa1f426f"
+    },
+    "Town15": {
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/Town15/OpenDrive/Town15.xodr",
+      "carla_version": "0.9.15",
+      "sha256": "8e9c69cfb3e750ace3e5d6b057e46786952a073c3924f319bbabb1a166dc2c17"
+    }
+  },
+  "bev_cache_dir": null,
+  "output_dir": "outputs/diffusiondrive_v1/paired_input_check",
+  "training": {
+    "max_steps": 4,
+    "max_epochs": 100,
+    "num_workers": 0,
+    "precision": "32-true",
+    "validation_every_epochs": 1,
+    "checkpoint_every_steps": 2,
+    "prefetch_factor": 2,
+    "validation_every_steps": 2
+  },
+  "evaluation_noise_seed": 137,
+  "tensor_memory_items": 8,
+  "label_rules": "v1_original_7class",
+  "camera_policy": "b2d-proportional-crop-v1",
+  "dataset_id": "Bench2Drive-V0.0.4-local-v1",
+  "dataset_root": "/data/datasets/Bench2Drive-V0.0.4/v1",
+  "features_collection": "tools/training/diffusiondrive_v1/features_jobs.json",
+  "python": "/home/aethelind/miniconda3/envs/navsim_gpu/bin/python",
+  "target_state_dir": "outputs/diffusiondrive_v1/targets_original_v1",
+  "target_root": {
+    "root_id": "targets_system",
+    "path": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/targets_cache/v1_original_7class",
+    "uuid": "932410d9-a546-40dd-aeda-09e390df924b",
+    "fstype": "ext4",
+    "budget_gib": 32,
+    "minimum_free_gib": 40
+  },
+  "paired_manifest": "outputs/diffusiondrive_v1/targets_original_v1/paired_manifest.json",
+  "paired_split_policy": "town"
+}

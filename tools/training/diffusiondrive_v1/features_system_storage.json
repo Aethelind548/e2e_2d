@@ -1,0 +1,20 @@
+{
+  "schema": "b2d-v1-system-features-storage-v1",
+  "dataset_id": "Bench2Drive-V0.0.4-local-v1",
+  "state_dir": "outputs/diffusiondrive_v1/features_jobs/remaining_20261015",
+  "config": "tools/training/diffusiondrive_v1/features_remaining_20261015.json",
+  "index_id": "0c178f09a28b4bde8f2340c6685c94a3",
+  "producer_sha256": "79d47303b6c3549102fe7b8dfa7b7df0c9575de4addea7f6ec94e21e716a5ce9",
+  "spec": {
+    "path": "/data/diffusiondrive_v1_tensors/features",
+    "mountpoint": "/",
+    "uuid": "932410d9-a546-40dd-aeda-09e390df924b",
+    "fstype": "ext4",
+    "budget_gib": 250,
+    "minimum_free_gib": 40
+  },
+  "planned_additional_gib": 300,
+  "planned_budget_after_expansion_gib": 550,
+  "updated": 1792081508.545596,
+  "verified_free_bytes": 316110397440
+}

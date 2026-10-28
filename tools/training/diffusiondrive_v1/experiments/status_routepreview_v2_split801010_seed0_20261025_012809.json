@@ -1,0 +1,81 @@
+{
+  "schema": "status-experimental-train-v2",
+  "experiment_scope": "OFFLINE_ORACLE_ROUTE_IL",
+  "status": "PREPARED_NOT_STARTED",
+  "created": "2026-10-25T01:28:09+08:00",
+  "dataset_manifest": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_dataset_manifest.json",
+  "sample_index": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_sample_index.jsonl",
+  "sample_index_sha256": "0d0ed97fdb146634ea09eba46ba483bbc091707a2ca021f05aee67a60daf4f4d",
+  "dataset_split_manifest": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/dataset_split_manifest.json",
+  "dataset_split_sha256": "ab05d947aba869c26752d231bc7f652a73f75a8d5feb9526ef83d9a0333d5925",
+  "base_config": "/home/aethelind/work/e2e_ad/tools/training/diffusiondrive_v1/baseline_bs8_acc8_lr6e4_official_route_split.json",
+  "output_dir": "/run/media/aethelind/PSSD/diffusiondrive_v1_experiments/status_routepreview_v2_split801010_seed0_20261025_012809",
+  "status_rule": "b2d-route-preview-20m-v1",
+  "seed": 0,
+  "batch_size": 16,
+  "accumulate_grad_batches": 4,
+  "effective_batch_size": 64,
+  "num_workers": 8,
+  "prefetch_factor": 2,
+  "learning_rate": 0.0006,
+  "max_epochs": 100,
+  "log_every_n_steps": 10,
+  "progress_every_steps": 50,
+  "checkpoint_monitor": "val/loss",
+  "checkpoint_keep": 1,
+  "precision_policy": "bf16-conv-fp32-fusion-heads-loss-eval-v1",
+  "init_policy": "official TransfuserAgent(checkpoint_path=None), official timm ResNet34 ImageNet backbone, step 0",
+  "validation": {
+    "full": true,
+    "frequency": "every epoch",
+    "rows": 17191,
+    "subset": null
+  },
+  "test": {
+    "rows": 16202,
+    "path": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_sample_index.jsonl",
+    "usage": "not loaded during training, checkpoint selection, LR tuning or preflight selection"
+  },
+  "route_split": {
+    "seed": 0,
+    "ratios": {
+      "train": 0.8,
+      "validation": 0.1,
+      "test": 0.1
+    },
+    "route_counts": {
+      "train": 880,
+      "validation": 110,
+      "test": 110
+    },
+    "frames": {
+      "train": 160266,
+      "validation": 17191,
+      "test": 16202,
+      "excluded_route_tail": 8267
+    },
+    "tail_frames": 40,
+    "train_tail": "retained",
+    "validation_test_tail": "excluded and not moved into train"
+  },
+  "tracked_metrics": [
+    "loss",
+    "trajectory_loss",
+    "bev_semantic_loss",
+    "agent_class_loss",
+    "agent_box_loss",
+    "val/loss",
+    "val/ade_m",
+    "val/fde_m",
+    "val/heading_error_deg"
+  ],
+  "guardrails": [
+    "official V1 model, loss, trajectory targets and optimizer semantics",
+    "learning rate 6e-4, AdamW weight decay 1e-4, WarmupCosLR 100 epochs/warmup 3",
+    "full validation every epoch; val/loss is the only checkpoint monitor",
+    "BF16 is a hardware/training precision deviation, not an algorithm change",
+    "micro batch 16 with 4-step accumulation preserves effective batch 64",
+    "no old Status checkpoint init or resume; no old global_step/optimizer/scheduler",
+    "Test split is frozen and never loaded during training or tuning"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schema": "status-experimental-train-v4",
+  "experiment_scope": "OFFLINE_ORACLE_ROUTE_IL",
+  "status": "PREPARED",
+  "created": "2026-10-26T09:25:00+08:00",
+  "short_run_arm": "A-paperval",
+  "purpose": "Continuation of arm A with paper-consistent validation: val also computes the training objective (2 diffusion steps, focal + L1) and the checkpoint monitor becomes val/paper_loss instead of the single-step plain-L1 proxy",
+  "parent_experiment": "status_agentbox_contA_lr3e4_lrscale_clip1000_20261025",
+  "parent_checkpoint": {
+    "name": "last.ckpt of the contA run",
+    "path": "/run/media/aethelind/PSSD/diffusiondrive_v1_experiments/status_agentbox_contA_lr3e4_lrscale_clip1000_20261025/checkpoints/last.ckpt",
+    "load_policy": "full resume (optimizer/scheduler/global_step); external path requires --resume-sha256"
+  },
+  "dataset_manifest": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_dataset_manifest.json",
+  "sample_index": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_sample_index.jsonl",
+  "sample_index_sha256": "0d0ed97fdb146634ea09eba46ba483bbc091707a2ca021f05aee67a60daf4f4d",
+  "dataset_split_manifest": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/dataset_split_manifest.json",
+  "dataset_split_sha256": "ab05d947aba869c26752d231bc7f652a73f75a8d5feb9526ef83d9a0333d5925",
+  "base_config": "/home/aethelind/work/e2e_ad/tools/training/diffusiondrive_v1/baseline_bs8_acc8_lr6e4_official_route_split.json",
+  "output_dir": "/run/media/aethelind/PSSD/diffusiondrive_v1_experiments/status_agentbox_paperval_lr3e4_clip1000_20261026",
+  "status_rule": "b2d-route-preview-20m-v1",
+  "seed": 0,
+  "batch_size": 16,
+  "accumulate_grad_batches": 4,
+  "effective_batch_size": 64,
+  "num_workers": 8,
+  "prefetch_factor": 2,
+  "learning_rate": 0.0003,
+  "paramwise_lr_scale": true,
+  "gradient_clip_val": 1000.0,
+  "gradient_log_every_steps": 10,
+  "max_epochs": 30,
+  "log_every_n_steps": 10,
+  "progress_every_steps": 50,
+  "checkpoint_monitor": "val/paper_loss",
+  "checkpoint_keep": 10,
+  "precision_policy": "bf16-conv-fp32-fusion-heads-loss-eval-v1",
+  "validation": {
+    "full": true,
+    "frequency": "every epoch",
+    "rows": 17191,
+    "subset": null,
+    "objective": "paper-v1: forward_train branch, frozen dropout, seed=epoch*100003+batch_idx",
+    "extra_cost": "one additional 2-step diffusion forward per validation batch"
+  },
+  "test": {
+    "rows": 16202,
+    "path": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_sample_index.jsonl",
+    "usage": "not loaded during training, checkpoint selection or tuning"
+  },
+  "monitor_rationale": {
+    "legacy": "val/loss used 12 * plain L1 for the trajectory term (forward_test has no loss keys); measured at 1/4.5 of the real objective, so selection was dominated by agent + BEV",
+    "paper": "val/paper_loss equals the training objective: 12*sum_2(10*focal+8*L1) + 10*agent_class + 1*agent_box + 14*BEV",
+    "note": "ADE/FDE stay computed from forward_test and are unchanged diagnostics"
+  },
+  "acceptance": {
+    "role": "paper-consistent monitoring; loss curve should track training objective rather than plateau",
+    "stop_or_investigate_if": [
+      "val/paper_loss rises for two consecutive epochs",
+      "val/paper_agent_box_loss or val/paper_agent_class_loss exceeds 1.5x its best-so-far value",
+      "val/paper_bev_semantic_loss exceeds 1.3x its best-so-far value"
+    ]
+  },
+  "guardrails": [
+    "official V1 model, loss, trajectory targets and official scheduler source unchanged",
+    "validation objective matches the training objective; training math and gradients untouched",
+    "dropout frozen and sampling seed fixed so the monitor is comparable across epochs",
+    "full validation every epoch; val/paper_loss is the only checkpoint monitor",
+    "Test split is frozen and never loaded during training or tuning"
+  ]
+}

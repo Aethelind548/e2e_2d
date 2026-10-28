@@ -1,0 +1,42 @@
+{
+  "schema": "b2d-v1-original-target-contract-v1",
+  "label_rules": {"name": "v1_original_7class", "version": "original-v2"},
+  "classes": ["background", "road", "walkway", "centerline", "static_object", "vehicle", "pedestrian"],
+  "tensors": {
+    "trajectory": {"shape": [8, 3], "dtype": "float32"},
+    "agent_states": {"shape": [30, 5], "dtype": "float32"},
+    "agent_labels": {"shape": [30], "dtype": "bool", "meaning": "true = valid vehicle; false = official unused padded slot"},
+    "bev_semantic_map": {"shape": [128, 256], "dtype": "int64", "range": [0, 6]}
+  },
+  "coordinates": {
+    "origin": "current ego rear reference",
+    "axes": "x forward, y left, heading positive left; metres and radians",
+    "rear_offset_actor_xy_m": [-1.388632877, 0.0],
+    "pose_source": "bounding_boxes[class=ego_vehicle].location/rotation; never noisy top-level GNSS",
+    "world_embedding": "CARLA world with Y and yaw reflected; not NuPlan georeferencing",
+    "bev_resolution_m": 0.25,
+    "bev_x_m": [0, 32],
+    "bev_y_m": [-32, 32],
+    "bev_index_direction": "row increases with forward x; column increases with left y",
+    "bev_quantization": "official _coords_to_pixel astype(int32), followed by rot90(mask)[::-1]; no alternate rounding"
+  },
+  "trajectory": {
+    "future_seconds": [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0],
+    "sampling": "existing TemporalSampler with engineering source_dt_s=0.1, target_dt_s=0.5; continuity of all intermediate annotations required",
+    "clock_evidence": "inherited 10Hz engineering contract; collection timestamp certification remains unverified",
+    "cross_route_or_padding": false
+  },
+  "bev_rules": {
+    "road": "OpenDRIVE driving/bidirectional surfaces; junction roads exposed as INTERSECTION",
+    "walkway": "OpenDRIVE sidewalk surfaces",
+    "centerline": "driving/bidirectional baselines as LANE/LANE_CONNECTOR; official thickness=2 pixels",
+    "static": "current actors mapped by bev_actor_name to czone_sign/barrier/traffic_cone/generic_object",
+    "vehicle": "validated current vehicle actors; ego excluded",
+    "pedestrian": "current walker/pedestrian actors with walker.* type_id",
+    "non_targets": "validated traffic lights and supported regulatory signs ignored by existing official mapping",
+    "overlap": "official ascending class iteration 1..6; later class overwrites earlier class",
+    "box_projection": "existing planar real center, doubled extents and relative yaw; unsupported tilt refused",
+    "guardrail": "not added in original label rules",
+    "failure": "existing geometry/mapping/alignment refusals retained; no buffer(0) or fake background fill"
+  }
+}

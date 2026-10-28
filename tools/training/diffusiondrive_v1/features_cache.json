@@ -1,0 +1,53 @@
+{
+  "camera_policy": "b2d-proportional-crop-v1",
+  "lidar_decoder_python": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/assets/laz_decoder_env/bin/python",
+  "plan_anchor_path": "outputs/diffusiondrive_v1/assets/official_kmeans_navsim_traj_20.npy",
+  "expected_anchor_sha256": "2d341e525d7882ee5e916c67d37bea571e4c793cf801f0fff3eff59d38b20d98",
+  "python": "/home/aethelind/miniconda3/envs/navsim_gpu/bin/python",
+  "threads": 2,
+  "dataset_id": "Bench2Drive-V0.0.4-local-v1",
+  "dataset_root": "/data/datasets/Bench2Drive-V0.0.4/v1",
+  "routes": [
+    "Accident_Town03_Route24976_Weather1_02-10-06-35-15",
+    "Accident_Town06_Route24687_Weather21_02-10-04-51-33",
+    "Accident_Town12_Route18887_Weather0_02-08-14-31-54",
+    "Accident_Town12_Route19099_Weather13_02-10-16-43-49",
+    "BlockedIntersection_Town04_Route27419_Weather3_02-08-08-11-38",
+    "BlockedIntersection_Town11_Route27472_Weather13_02-06-00-21-27",
+    "ControlLoss_Town02_Route93_Weather14_02-10-01-33-39",
+    "DynamicObjectCrossing_Town01_Route24211_Weather6_02-10-10-19-39",
+    "HazardAtSideLane_Town03_Route25252_Weather4_02-07-05-33-23",
+    "HighwayExit_Town06_Route25792_Weather19_02-06-02-57-09",
+    "InvadingTurn_Town10HD_Route24350_Weather18_02-07-03-27-03",
+    "OppositeVehicleRunningRedLight_Town10HD_Route24450_Weather16_02-08-17-24-39",
+    "ParkedObstacleTwoWays_Town11_Route25844_Weather13_02-08-03-16-02",
+    "ParkingCrossingPedestrian_Town05_Route24609_Weather16_02-07-14-09-58",
+    "PedestrianCrossing_Town05_Route27646_Weather14_02-07-14-38-24",
+    "SequentialLaneChange_Town04_Route24245_Weather6_02-07-16-45-48",
+    "Accident_Town15_Route25208_Weather13_02-05-13-22-14",
+    "ConstructionObstacleTwoWays_Town13_Route29359_Weather8_02-07-10-26-36",
+    "ConstructionObstacleTwoWays_Town13_Route29427_Weather1_02-08-03-13-07",
+    "HighwayCutIn_Town15_Route27433_Weather17_02-06-04-26-36",
+    "VanillaSignalizedTurnEncounterRedLight_Town07_Route26136_Weather20_02-08-04-06-06"
+  ],
+  "state_dir": "outputs/diffusiondrive_v1/features_service",
+  "cache_roots": {
+    "cache_a": {
+      "mountpoint": "/run/media/aethelind/48EA01DBEA01C5E2",
+      "uuid": "48EA01DBEA01C5E2",
+      "fstype": "ntfs3",
+      "budget_gib": 450,
+      "minimum_free_gib": 100,
+      "path": "/run/media/aethelind/48EA01DBEA01C5E2/diffusiondrive_v1_tensors_YMTC/features"
+    },
+    "cache_b": {
+      "mountpoint": "/run/media/aethelind/PSSD",
+      "uuid": "F8E4AE34E4ADF552",
+      "fstype": "ntfs3",
+      "budget_gib": 650,
+      "minimum_free_gib": 100,
+      "path": "/run/media/aethelind/PSSD/diffusiondrive_v1_tensors_PSSD/features"
+    }
+  },
+  "shared_feature_roots": "tools/training/diffusiondrive_v1/features_shared_storage.json"
+}

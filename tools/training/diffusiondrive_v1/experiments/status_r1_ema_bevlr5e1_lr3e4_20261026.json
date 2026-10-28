@@ -1,0 +1,124 @@
+{
+  "schema": "status-experimental-train-v6",
+  "experiment_scope": "OFFLINE_ORACLE_ROUTE_IL",
+  "status": "PREPARED",
+  "created": "2026-10-26T21:20:00+08:00",
+  "short_run_arm": "R1-ema-bevlr",
+  "purpose": "From-scratch rerun that changes exactly two variables versus the current baseline: (1) EMA weights are used for validation and checkpoint selection, (2) the BEV head trains at 0.5x the base learning rate. Network, loss weights, data, batch and clip are unchanged.",
+  "hypothesis": {
+    "ema": "smoothing the weights should reduce epoch-to-epoch swings of val/paper_loss and stop the late-epoch drift",
+    "bev_lr": "halving the BEV head step should stop its monotonic degradation (currently +8-9% over 20 epochs) because the head only receives 0.55% of the gradient norm and keeps overshooting",
+    "combined": "BEV and total validation loss should improve without hurting agent/trajectory branches"
+  },
+  "parent_experiment": "status_agentbox_cos50b_lr3e4_clip1000_20261026",
+  "baseline_reference": {
+    "note": "Same formula and same data as this run, so val/paper_loss is directly comparable",
+    "epochs": "ep25-31 of cos50/cos50b",
+    "val_paper_loss_range": [75.89, 79.39],
+    "best_so_far": {"epoch": 28, "val_paper_loss": 75.89, "val_paper_trajectory": 65.75, "val_paper_bev": 6.00, "val_loss_legacy": 16.607, "ade_m": 1.411},
+    "known_issue": "train/loss fell 73.9% while val/paper_loss rose 3.8%; cosine annealing was ruled out as the cause"
+  },
+  "only_two_changes": {
+    "1_ema": {"ema_enabled": true, "ema_decay": 0.999, "validates_with": "ema-weights"},
+    "2_bev_head_lr": {
+      "opt_paramwise_cfg": {
+        "name": {
+          "image_encoder": {"lr_mult": 0.5},
+          "bev_semantic_head": {"lr_mult": 0.5}
+        }
+      },
+      "note": "image_encoder keeps its existing official 0.5x; the BEV head is the only new multiplier"
+    }
+  },
+  "unchanged_from_baseline": [
+    "official V1 model architecture and loss weights (12/10/8/20/10/1/14) untouched",
+    "dataset, split, 8:1:1 seed-0 Route split, tail policy untouched",
+    "batch 16 x accumulate 4 = effective 64, clip 1000, num_workers 8 untouched",
+    "base learning_rate 3e-4 with WarmupCosLR 50 epochs / warmup 3 / min_lr 1e-6",
+    "BF16 convolution engineering policy; loss and eval stay FP32",
+    "full 17,191-row validation every epoch; monitor val/paper_loss"
+  ],
+  "dataset_manifest": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_dataset_manifest.json",
+  "sample_index": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_sample_index.jsonl",
+  "sample_index_sha256": "0d0ed97fdb146634ea09eba46ba483bbc091707a2ca021f05aee67a60daf4f4d",
+  "dataset_split_manifest": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/dataset_split_manifest.json",
+  "dataset_split_sha256": "ab05d947aba869c26752d231bc7f652a73f75a8d5feb9526ef83d9a0333d5925",
+  "base_config": "/home/aethelind/work/e2e_ad/tools/training/diffusiondrive_v1/baseline_bs8_acc8_lr6e4_official_route_split.json",
+  "output_dir": "/run/media/aethelind/PSSD/diffusiondrive_v1_experiments/status_r1_ema_bevlr5e1_lr3e4_20261026",
+  "status_rule": "b2d-route-preview-20m-v1",
+  "seed": 0,
+  "batch_size": 16,
+  "accumulate_grad_batches": 4,
+  "effective_batch_size": 64,
+  "num_workers": 8,
+  "prefetch_factor": 2,
+  "learning_rate": 0.0003,
+  "paramwise_lr_scale": true,
+  "opt_paramwise_cfg": {
+    "name": {
+      "image_encoder": {"lr_mult": 0.5},
+      "bev_semantic_head": {"lr_mult": 0.5}
+    }
+  },
+  "ema_enabled": true,
+  "ema_decay": 0.999,
+  "gradient_clip_val": 1000.0,
+  "gradient_log_every_steps": 10,
+  "max_epochs": 25,
+  "scheduler_epochs": 25,
+  "log_every_n_steps": 10,
+  "progress_every_steps": 50,
+  "checkpoint_monitor": "val/paper_loss",
+  "checkpoint_keep": 5,
+  "precision_policy": "bf16-conv-fp32-fusion-heads-loss-eval-v1",
+  "validation": {
+    "full": true,
+    "frequency": "every epoch",
+    "rows": 17191,
+    "subset": null,
+    "objective": "paper-v1: forward_train branch, frozen dropout, seed=epoch*100003+batch_idx",
+    "weights": "EMA shadow (decay 0.999, warmed up over first 100 steps)",
+    "extra_cost": "one extra weight copy per validation, plus one 2-step diffusion forward per batch"
+  },
+  "test": {
+    "rows": 16202,
+    "path": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_sample_index.jsonl",
+    "usage": "not loaded during training, checkpoint selection or tuning"
+  },
+  "checkpoint_semantics": {
+    "best-*.ckpt / last.ckpt": "raw weights, consistent with the saved optimizer state; the monitored score was produced by the EMA weights",
+    "ema-*.ckpt": "smoothed weights only (schema status-ema-weights-v1); use these for evaluation or deployment",
+    "resume": "always from last.ckpt or pause-*.ckpt (raw weights); the EMA shadow is restored from callback state"
+  },
+  "acceptance": {
+    "ema_effect": [
+      "epoch-to-epoch standard deviation of val/paper_loss over a 5-epoch window is lower than the baseline window (76.49, 76.77, 77.06, 75.89, 77.17 -> sigma 0.54)",
+      "no late-epoch monotonic rise comparable to ep29-31 (+2.2 over three epochs)"
+    ],
+    "bev_effect": [
+      "val/paper_bev_semantic_loss stays at or below the ep28 value 6.00 instead of climbing past 6.20",
+      "val/paper_bev_semantic_loss does not exceed 1.3x its best-so-far value"
+    ],
+    "no_collateral_damage": [
+      "val/paper_trajectory_loss does not exceed the baseline best 65.75 by more than 3%",
+      "val/paper_agent_box_loss stays below 3.30 (baseline range 2.94-3.03)"
+    ],
+    "overall": [
+      "val/paper_loss reaches a new minimum below 75.89",
+      "train/val gap does not widen beyond the current 5.1x"
+    ]
+  },
+  "stop_or_investigate_if": [
+    "val/paper_loss rises for three consecutive epochs",
+    "val/paper_bev_semantic_loss exceeds 1.5x its best-so-far value",
+    "agent or trajectory branch loss exceeds 1.5x its best-so-far value",
+    "non-finite loss or gradient norm"
+  ],
+  "guardrails": [
+    "exactly two variables changed: EMA on, BEV head lr_mult 0.5; everything else identical to the baseline",
+    "official repository stays byte-identical (only the pre-existing scheduler verbose patch)",
+    "loss weights untouched, so val/paper_loss stays comparable with ep25-31",
+    "EMA weights are used for validation; checkpoints keep raw weights so resume stays consistent",
+    "Test split frozen and never loaded"
+  ]
+}

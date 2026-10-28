@@ -1,0 +1,183 @@
+{
+  "allowed_feature_storage_registration_sha256": "8a97d4a3792c81623ce5468f7b841bc23a2a504babd43e8081a9d3e0e2699f15",
+  "allowed_recovery_producers": [
+    "7e341e1bb88667badbd9513d37c5adee917a56e040e2bbff634e792542800bdd"
+  ],
+  "allowed_target_storage_registration_sha256": "f02431f41c8cc10ff054cfdeabbec80bf6167c804cecb4d9d7912206004c1ce3",
+  "approved_new_geometry_contracts": [],
+  "batch_size": 16,
+  "bev_cache_dir": null,
+  "bkb_path": "outputs/diffusiondrive_v1/assets/resnet34_a1_0-46f8f793.pth",
+  "cache_file_read_mode": "verified-single-pass",
+  "cache_read_mode": "cache-only",
+  "camera_policy": "b2d-proportional-crop-v1",
+  "csv_logger": true,
+  "dataset_id": "Bench2Drive-V0.0.4-local-v1",
+  "dataset_root": "/data/datasets/Bench2Drive-V0.0.4/v1",
+  "dataset_split_manifest": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/dataset_split_manifest.json",
+  "evaluation_noise_seed": 137,
+  "evidence_every_steps": 1,
+  "execution_source_sha256": {
+    "tools/training/diffusiondrive_v1/fit.py": "ae0976ffec0af9d2e7d57548f6f132d65e496beb2e7f8ad971e136b0f41d8b07",
+    "tools/training/diffusiondrive_v1/lr_experiment.py": "a284f98ea9e3c3e587a221db91043a67f3a13a214929ed1420e0ea95a0e0ed77",
+    "tools/training/diffusiondrive_v1/training_health.py": "752966208d8367e580f3defd49eae4cfdcf92aa93db3224d780222e45ca4f044",
+    "tools/training/diffusiondrive_v1/training_progress.py": "99ded14777d016f53aa10094b713f653b6d919dbbd3d9fe7db50f8a777cf1bae"
+  },
+  "expected_anchor_sha256": "2d341e525d7882ee5e916c67d37bea571e4c793cf801f0fff3eff59d38b20d98",
+  "expected_image_sha256": "46f8f7930534e471b9a139b278896db5d11d17b8ea3fcc90ad43deed9e5e27d7",
+  "experiment_protocol": {
+    "batch_size_not_original_distributed_batch": true,
+    "first_checks": [
+      250,
+      500
+    ],
+    "formal_training_started": false,
+    "gradient_accumulation_not_physical_batch64": true,
+    "initialization": "official TransfuserAgent(checkpoint_path=None); official timm ResNet34 ImageNet backbone",
+    "long_training_authorized": false,
+    "phase": "ROUTE_SPLIT_801010_FORMAL_RETRAIN",
+    "reset_optimizer_scheduler_sampler_global_step": true,
+    "route_split_manifest": "outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/dataset_split_manifest.json",
+    "scheduler": "official WarmupCosLR 100 epochs warmup 3 (restored)",
+    "seed": 0,
+    "source_config_sha256": "c4d651edb5c3a2bba24836867fc6d6a3f0864191b1d849b51d385b117b527127",
+    "target_producer": "7e341e1bb88667badbd9513d37c5adee917a56e040e2bbff634e792542800bdd",
+    "total_optimizer_step_budget": 2000,
+    "validation_sample_ids_sha256": "71fd10506e5dc48d97dd2990bea065ad270032c209e580480632aeb8c429f4ce"
+  },
+  "features_collection": "tools/training/diffusiondrive_v1/features_jobs.json",
+  "health_monitor": {
+    "engineering_alarm_policy": "query<min(.02,initial*.1); QK>max(100,initial*4) and entropy<.05; ADE>initial*1.3+.3 or FDE>initial*1.3+.5 twice; QK doubles beyond100 twice",
+    "every_optimizer_steps": 250,
+    "panel_source": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/checkpoint_evaluation/attribution_samples.jsonl",
+    "panel_source_sha256": "6714866dfbd0a2ee544408ea05f294999d5e5073204dc98088cf192b5c32fbab",
+    "stationary_false_motion": "GT speed<.5m/s and GT path<=.5m; predicted path>1m"
+  },
+  "image_pretrained_url": "https://github.com/huggingface/pytorch-image-models/releases/download/v0.1-rsb-weights/resnet34_a1_0-46f8f793.pth",
+  "label_rules": "v1_original_7class",
+  "learning_rate": 0.0006,
+  "lidar_decoder_python": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/assets/laz_decoder_env/bin/python",
+  "log_every_n_steps": 100,
+  "map_paths": {
+    "Town01": {
+      "carla_version": "0.9.15",
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town01.xodr",
+      "sha256": "97a7f6ac67812567e5c8ee0599cd823b23f80f30f3f97c502212e38b72e2b709"
+    },
+    "Town02": {
+      "carla_version": "0.9.15",
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town02.xodr",
+      "sha256": "953c05f17def231239ffcadba3307628a82d0d335b67b4e29c3098f7aed1dd7d"
+    },
+    "Town03": {
+      "carla_version": "0.9.15",
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town03.xodr",
+      "sha256": "abf177bcd9b66cfefb7ac4919f6456815f1384f4229f1343c8a6a90bbb7713c9"
+    },
+    "Town04": {
+      "carla_version": "0.9.15",
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town04.xodr",
+      "sha256": "4dddd1560ab7812b0e89cd4a523d8b6f2b93947eafb496d9eeb83cc772116c85"
+    },
+    "Town05": {
+      "carla_version": "0.9.15",
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town05.xodr",
+      "sha256": "7edc53b0be840e177598da7a4ed9571146d7b2595ce280d154c90f92e8a48851"
+    },
+    "Town06": {
+      "carla_version": "0.9.15",
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town06.xodr",
+      "sha256": "a90b613175fa837fdc128ddfaf5ddad25797b128fdbd8cd945974bc21a60496e"
+    },
+    "Town07": {
+      "carla_version": "0.9.15",
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town07.xodr",
+      "sha256": "be730652769e993e27f748ba5793dba9e49d299205146a7a8db0bcd17af877bf"
+    },
+    "Town10HD": {
+      "carla_version": "0.9.15",
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/OpenDrive/Town10HD.xodr",
+      "sha256": "5d883b799f634030af92be1e9d79d107845540ba04338e8c60e095be1aef7be7"
+    },
+    "Town11": {
+      "carla_version": "0.9.15",
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/Town11/OpenDrive/Town11.xodr",
+      "sha256": "52ffa8412425b87394afa6a37bf0b688c0584a24df6ae88fea53866acb91e222"
+    },
+    "Town12": {
+      "carla_version": "0.9.15",
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/Town12/OpenDrive/Town12.xodr",
+      "sha256": "26fa53d4902ac3397d35f948969f0c77c1bf023755ede2c67edf00bef817151f"
+    },
+    "Town13": {
+      "carla_version": "0.9.15",
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/Town13/OpenDrive/Town13.xodr",
+      "sha256": "5354326f2fe4d26f0dcb5c82acf462257e638278363ab7adecb97ec3aa1f426f"
+    },
+    "Town15": {
+      "carla_version": "0.9.15",
+      "path": "/home/aethelind/carla/CARLA_0.9.15/CarlaUE4/Content/Carla/Maps/Town15/OpenDrive/Town15.xodr",
+      "sha256": "8e9c69cfb3e750ace3e5d6b057e46786952a073c3924f319bbabb1a166dc2c17"
+    }
+  },
+  "mount_check_mode": "procfs",
+  "official_reference_commit": "9b52ed0ec06b073d82d6f392ab084c7b301c8681",
+  "official_source_sha256": {
+    "navsim/agents/diffusiondrive/modules/blocks.py": "de879c63cbfaf8fe96437cb84f4a9c28392625ec6706132032afceed4ffc2776",
+    "navsim/agents/diffusiondrive/modules/conditional_unet1d.py": "0d6d589fb29d6e076b77bddbb3d7ab6b86c216c29e13391fb532d661a13f5cf7",
+    "navsim/agents/diffusiondrive/modules/multimodal_loss.py": "699d732b1c8d858ed8b5cd72f31607ed433e031c12441c46baac697a463283fd",
+    "navsim/agents/diffusiondrive/modules/scheduler.py": "67749942c4841d105b8e8e03ce7e500734cc7f41eb4683a973fa624eb5d51ca6",
+    "navsim/agents/diffusiondrive/transfuser_agent.py": "263239dd8f4a647e2d2be0856c62d64ff6806e6923961f9aabb24510726cf6c6",
+    "navsim/agents/diffusiondrive/transfuser_backbone.py": "53cb334652860634cf2cd9c4867b270465631f5f1e33b2e4c7bcadfc448471a3",
+    "navsim/agents/diffusiondrive/transfuser_callback.py": "e56c1af7d9bafbf994602727719c4579462757005cfe500ce8482567cc06249b",
+    "navsim/agents/diffusiondrive/transfuser_config.py": "9be65fcc34a7ea9d2d1662adf70e3aa6c4807faf049c168956f3e12adb25cefb",
+    "navsim/agents/diffusiondrive/transfuser_features.py": "4b80250c498b53396c8515cc0f5927f8f71aed9b6825a750ff440431af2ff6c3",
+    "navsim/agents/diffusiondrive/transfuser_loss.py": "5b70e51da6ac10d3b1f2c805db689b0ff8fe738d960a224ea578c19d529d7790",
+    "navsim/agents/diffusiondrive/transfuser_model_v2.py": "84a7f824fa51f172d6d2a940ad566a96eb253f26231065f5283bf6507701a697",
+    "navsim/planning/training/agent_lightning_module.py": "ec26775ae6681135a313a74ec03976bcd5b7224db93ae10584381bf617ffa336"
+  },
+  "output_dir": "/run/media/aethelind/PSSD/diffusiondrive_v1_experiments/batch64_lr1e4_warmstart/training",
+  "output_storage": {
+    "fstype": "ntfs3",
+    "minimum_free_gib": 100,
+    "path": "/run/media/aethelind/PSSD/diffusiondrive_v1_experiments/batch64_lr1e4_warmstart",
+    "uuid": "F8E4AE34E4ADF552"
+  },
+  "paired_manifest": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/paired_manifest.json",
+  "plan_anchor_path": "outputs/diffusiondrive_v1/assets/official_kmeans_navsim_traj_20.npy",
+  "precision_policy": "bf16-conv-fp32-fusion-heads-loss-eval-v1",
+  "precision_policy_source_sha256": "c10d607165d7ac0de8a1bcaf272fe8c5b81eb72106bf32562a181b4d4037bb52",
+  "python": "/home/aethelind/miniconda3/envs/navsim_gpu/bin/python",
+  "reference_eval_batches": 4,
+  "schema": "status-training-base-config-v2",
+  "seed": 0,
+  "step_report_limit": 256,
+  "strict_resume_audit": true,
+  "target_discovery": "all-local-routes",
+  "target_location_reader_sha256": "ea667e27151270aca15e0f38c6e017da503209ecb8777482e9f0e65b0ce56186",
+  "target_root": {
+    "budget_gib": 128,
+    "fstype": "ext4",
+    "minimum_free_gib": 40,
+    "path": "/data/datasets/diffusiondrive_v1_targets_cache",
+    "root_id": "targets_data",
+    "uuid": "87c96c26-602b-4c86-87c3-5576852d6cd6"
+  },
+  "target_state_dir": "outputs/diffusiondrive_v1/targets_full_v1",
+  "target_storage_encoding": "b2d-v1-targets-bev-uint8-v1",
+  "target_storage_registration": {
+    "path": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/targets_to_pssd_20261024/target_storage_registration_historical28_v2.json",
+    "sha256": "f02431f41c8cc10ff054cfdeabbec80bf6167c804cecb4d9d7912206004c1ce3"
+  },
+  "tensor_memory_items": 2,
+  "threads": 2,
+  "training": {
+    "max_epochs": 100,
+    "max_steps": null,
+    "num_workers": 8,
+    "persistent_workers": true,
+    "precision": "bf16-conv-fp32-fusion-heads-loss-eval-v1",
+    "prefetch_factor": 2,
+    "validation_every_epochs": 1
+  }
+}
