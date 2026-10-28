@@ -8,7 +8,7 @@
 > **相关代码：** tools/、agent/、tests/、tools/release/。
 > **最后更新：** 2026-10-28。
 
-基线树：335普通文件、31,341,138字节，另1个官方V1 gitlink。53项排除共7,147,709字节（6.816MiB）；原件仍在磁盘，Git历史未缩小。净文件/字节统计以本轮最终Git树差异为准，见RC摘要。
+基线树：335普通文件、31,341,138字节，另1个官方V1 gitlink。53项排除共7,147,709字节（6.817MiB）；原件仍在磁盘，Git历史未缩小。净文件/字节统计以本轮最终Git树差异为准，见RC摘要。
 
 发布包含：第一方Adapter、Baseline/R2独立训练与恢复/评估、Agent未完成边界、长期tests及tools/validation/b2d_adapter/test_*.py、必要CLI/冻结来源合同、requirements、资源Manifest、已有Python补丁、MIT全文、导航与发布审查。R1父版本和R2配置、scratch及仍存在合同关联的旧配置保留，避免静默切断恢复/来源链。
 
