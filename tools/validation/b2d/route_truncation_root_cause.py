@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 sys.dont_write_bytecode = True
 
-from tools.b2d_adapter.experimental_route_navigation import CompactMap, match_poses  # noqa: E402
+from tools.b2d_adapter.experimental_route_navigation import CompactMap, _clean_points, match_poses  # noqa: E402
 from tools.b2d_adapter.experimental_route_preview import RoutePolyline  # noqa: E402
 from tools.validation.b2d.route_end_classifier import (  # noqa: E402
     END_FRAME_TOLERANCE, load_jsonl, source_frames,
@@ -71,16 +71,6 @@ def _center_point(town, center_id):
         return None
     points = town.center_points(int(center_id))[:, :2]
     return points
-
-
-def _clean_points(points):
-    clean = []
-    for point in points:
-        point = [float(point[0]), float(point[1])]
-        if not clean or math.hypot(point[0] - clean[-1][0],
-                                  point[1] - clean[-1][1]) > 1e-6:
-            clean.append(point)
-    return clean
 
 
 def successor_branches(town, start_center_id, max_depth=4):

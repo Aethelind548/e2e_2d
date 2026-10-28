@@ -31,6 +31,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 sys.dont_write_bytecode = True
+from tools.training.diffusiondrive_v1.evaluate_checkpoint import digest, sha256 as file_digest
 CONFIG = ROOT / 'tools/training/diffusiondrive_v1/baseline_bs8_acc8_lr1e4_scratch.json'
 ANCHOR = ROOT / 'outputs/diffusiondrive_v1/assets/official_kmeans_navsim_traj_20.npy'
 PANEL = ROOT / ('outputs/diffusiondrive_v1/scratch_attribution/'
@@ -64,18 +65,6 @@ METRIC_PREFIX = 'diagnostic_only_'
 
 
 # ---------------------------------------------------------------- utilities
-
-def digest(value):
-    return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
-
-
-def file_digest(path):
-    h = hashlib.sha256()
-    with Path(path).open('rb') as stream:
-        for chunk in iter(lambda: stream.read(4 * 1024 * 1024), b''):
-            h.update(chunk)
-    return h.hexdigest()
-
 
 def readonly(path):
     db = sqlite3.connect('file:' + str(Path(path).resolve()) + '?mode=ro', uri=True)

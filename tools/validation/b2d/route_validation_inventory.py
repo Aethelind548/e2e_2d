@@ -29,6 +29,7 @@ from tools.b2d_adapter.route_preview_contract import preview_command4
 from tools.validation.b2d.online_global_plan import record_sha as planner_record_sha
 from tools.validation.b2d.session_plan_agent import record_sha as session_record_sha
 from tools.validation.b2d.route_source_certification import accept_match, dedupe_points
+from tools.validation.b2d.collection_source_recovery import sha
 from tools.training.diffusiondrive_v1.certified_overlay_v4 import CHECKS
 
 VERSION = 'route-validation-inventory-v1'
@@ -69,14 +70,6 @@ class CachedRoute(RoutePolyline):
         index = int(np.argmin(distances))
         return (float(self._cumulative[index]+factors[index]*self._lengths[index]),
                 float(distances[index]),projected[index],index)
-
-
-def sha(path):
-    h = hashlib.sha256()
-    with Path(path).open('rb') as stream:
-        for block in iter(lambda: stream.read(4194304), b''):
-            h.update(block)
-    return h.hexdigest()
 
 
 def digest(value):

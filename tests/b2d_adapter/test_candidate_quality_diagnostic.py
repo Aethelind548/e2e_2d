@@ -1,10 +1,25 @@
 import math
 import os
+import hashlib
+import json
 
 import numpy as np
 import pytest
 
 import tools.validation.b2d.candidate_quality_diagnostic as diag
+
+
+def test_report_identity_preserves_json_encoding_and_detects_changed_bytes(tmp_path):
+    value = {'z': [1, 2], 'a': '轨迹'}
+    expected = hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
+    compact = hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+    assert diag.digest(value) == expected != compact
+    path = tmp_path / 'panel.json'
+    path.write_text(json.dumps(value), encoding='utf-8')
+    original = diag.file_digest(path)
+    assert original == hashlib.sha256(path.read_bytes()).hexdigest()
+    path.write_text('{}', encoding='utf-8')
+    assert diag.file_digest(path) != original
 
 
 def official_anchor_index(target, anchor):

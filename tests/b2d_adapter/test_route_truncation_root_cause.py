@@ -3,7 +3,7 @@ from types import SimpleNamespace
 import numpy as np
 
 from tools.validation.b2d.route_truncation_root_cause import (
-    branch_extension, classify_subtype, successor_branches,
+    _clean_points, branch_extension, classify_subtype, successor_branches,
 )
 
 
@@ -33,6 +33,13 @@ def _town(branches=2):
     if branches > 1:
         links[2].append((4, 0.01))
     return FakeTown(centers, links)
+
+
+def test_geometry_cleanup_keeps_strict_join_threshold_and_preserves_input():
+    points = [[0, 0, 9], [0, 0, 8], [1e-6, 0, 7], [2e-6, 0, 6]]
+    assert _clean_points(points) == [[0., 0.], [2e-6, 0.]]
+    assert points == [[0, 0, 9], [0, 0, 8], [1e-6, 0, 7], [2e-6, 0, 6]]
+    assert _clean_points([]) == []
 
 
 def test_successor_branches_returns_distinct_normal_successors():

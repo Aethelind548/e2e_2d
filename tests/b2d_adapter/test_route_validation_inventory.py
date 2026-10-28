@@ -1,5 +1,6 @@
 """Route candidate decisions never replace strict per-frame session evidence."""
 import copy
+import hashlib
 import json
 import math
 
@@ -13,6 +14,19 @@ from tools.validation.b2d.route_validation_inventory import (
     CachedRoute, RULE, candidate_accepted, finalize_inventory, intervals, load_xml_candidates, navigation_target,
     projection_metrics, route_pass, route_states, strict_frame_checks,
 )
+
+
+def test_evidence_checksum_tracks_bytes_and_propagates_missing_file(tmp_path):
+    from tools.validation.b2d.route_validation_inventory import sha
+    path = tmp_path / 'evidence.json'
+    path.write_bytes(b'{"identity": "original"}\n')
+    original = sha(path)
+    assert original == hashlib.sha256(path.read_bytes()).hexdigest()
+    path.write_bytes(b'{"identity": "changed"}\n')
+    assert sha(path) != original
+    path.unlink()
+    with pytest.raises(FileNotFoundError):
+        sha(path)
 
 
 def strict_case():
