@@ -112,7 +112,7 @@ LR 在此区间从 1.65e-4 降到约 1.05e-4。
 
 ## 训练边界
 
-- 当前 R1 从头训练中，不加载任何旧 Status checkpoint；cos50b 保持暂停作为对照。
+- 截至2026-10-27记录，当前R2从R1完整断点续训后已暂停；cos50b保留为历史对照。2026-10-28发布环境无法读取外盘实时状态，不能据本文执行恢复。
 - Test 仍未加载；评估仅使用 Validation（17,191 行）。
 - PSSD（`/dev/nvme0n1p1`）与 YMTC（`/dev/nvme1n1p3`）当前均已挂载；启动前仍须核对断点 SHA 与输出目录父级存在。
 - 判断收敛只看 `train/loss_epoch` 与 `val/paper_loss` 的间距；`val/loss` 仅作历史连续性参考，不用于选点或设阈值。
@@ -134,7 +134,7 @@ LR 在此区间从 1.65e-4 降到约 1.05e-4。
 - `scheduler_epochs` 必须 ≥ `max_epochs`，否则拒绝启动；
 - `--init-weights` 只加载 763 个权重张量；`--resume` 只接受本实验目录内完整断点，跨目录必须带 `--resume-sha256`；
 - 非有限 loss 或梯度立即停止；输出盘未挂载时拒绝 `mkdir`，避免把断盘写成系统盘目录；
-- 每次暂停后的续训须落到新的输出目录（`resume_contract` 的设计），旧目录保留全部历史 checkpoint。
+- 恢复目录以实际`resume_contract`、本实验配置和断点身份为准；R2允许本实验同目录完整恢复，跨目录必须显式SHA；原有历史断点保留。
 
 回归：`tests/training` **146 项通过**，含 lr_scale 守卫、调度器跨度注入、暂停封顶与真实 Lightning 端到端停止。
 

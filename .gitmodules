@@ -1,0 +1,3 @@
+[submodule "repositories/DiffusionDrive"]
+	path = repositories/DiffusionDrive
+	url = https://github.com/hustvl/DiffusionDrive.git

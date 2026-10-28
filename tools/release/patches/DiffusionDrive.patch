@@ -1,0 +1,14 @@
+diff --git a/navsim/agents/diffusiondrive/modules/scheduler.py b/navsim/agents/diffusiondrive/modules/scheduler.py
+index 9f6482e..34687b7 100644
+--- a/navsim/agents/diffusiondrive/modules/scheduler.py
++++ b/navsim/agents/diffusiondrive/modules/scheduler.py
+@@ -11,7 +11,8 @@ class WarmupCosLR(_LRScheduler):
+         self.lr = lr
+         self.epochs = epochs
+         self.warmup_epochs = warmup_epochs
+-        super(WarmupCosLR, self).__init__(optimizer, last_epoch, verbose)
++        # PyTorch >=2.7 removed the verbose argument; scheduling math is unchanged.
++        super(WarmupCosLR, self).__init__(optimizer, last_epoch)
+ 
+     def state_dict(self):
+         """Returns the state of the scheduler as a :class:`dict`.

@@ -9,4 +9,35 @@ htmlcov/
 .DS_Store
 /outputs/
 /tmp/
-# Do not blanket-ignore analysis, configuration, frozen manifests, or undo originals.
+# Source configs stay versioned; local research and machine evidence stay in place.
+# Local research/evidence stays on disk; publish only the reviewed release audit.
+# External machine contracts are described by tools/release/resources.json.
+/analysis/*
+!/analysis/release_refactor/
+/analysis/release_refactor/*
+!/analysis/release_refactor/refactor_plan.md
+!/analysis/release_refactor/deprecated_interface_inventory.md
+!/analysis/release_refactor/removed_code_report.md
+!/analysis/release_refactor/interface_migration_map.md
+!/analysis/release_refactor/release_file_manifest.md
+!/analysis/release_refactor/regression_test_report.md
+!/analysis/release_refactor/release_readiness.md
+# V1 is a pinned upstream gitlink. Historical V2 remains an independent local repo.
+/repositories/*
+!/repositories/DiffusionDrive/
+/data/
+/datasets/
+/.env
+/.env.*
+!/.env.example
+/.aws/
+/.codex/
+/.agents/
+*.ckpt
+*.pth
+*.pt
+*.npz
+*.npy
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

@@ -26,3 +26,7 @@
 ## pin问题处理边界
 
 base配置pin的fit.py与lr_experiment.py与当前文件不同；10月24日发布副本及source_snapshot_files.jsonl均对应当前版本，不能提供匹配的原始实现。R2实际外盘Checkpoint/launch不可见，故恢复身份保持阻塞。严禁更新旧pin或放松校验解决本问题；本轮不修改这两个文件。
+
+## 执行结果
+
+第一批b2ece23与第二批29906af已分别提交；第三批为代码/资源发布边界、V1 gitlink与补丁/许可证、只读预检及部署说明。全部历史研究和生产资产保持原位，未进行不确定脚本的批量删除。实际源pin/完整恢复/远程环境与Agent未完成能力形成最终阻塞，见release_readiness.md。

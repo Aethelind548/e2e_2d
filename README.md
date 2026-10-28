@@ -1,31 +1,27 @@
 # Bench2Drive → DiffusionDrive V1
 
-> **建立前提：** 工程进入官方V1训练与独立Agent开发阶段。
-> **解决问题：** 提供项目主线、目录职责与少量核心入口。
-> **适用范围：** 所有进入本工程的开发者。
-> **不包含：** 详细设计和重复启动命令。
-> **当前状态：** 当前维护。
-> **相关代码：** tools/、agent/、tests/
-> **最后更新：** 2026-10-25（当前 Route split v2 正式实验状态入口；运行状态由 `TRAINING_STATUS.md` 维护）。
+> **建立前提：** 原版V1与独立Status实验需要可审阅的代码发布边界。
+> **解决问题：** 导航到操作入口、数据合同、Agent边界和发布验收。
+> **适用范围：** 第一方源码、长期回归与固定上游依赖。
+> **不包含：** 数据/模型资源分发、历史实验重写或已完成闭环的声明。
+> **当前状态：** 发布重构；服务器恢复与Agent闭环尚未验收。
+> **相关代码：** tools/、agent/、tests/、repositories/DiffusionDrive/。
+> **最后更新：** 2026-10-28。
 
-当前主线：Bench2Drive V0.0.4 的 Camera/LiDAR/Status 缓存与原版七类 Targets 配对，训练官方 DiffusionDrive V1 Baseline；CARLA Agent 是独立的未完成部署分支。V1 官方网络的类名就是 `V2TransfuserModel`；独立的 DiffusionDriveV2 RL/SEL 不参与本次训练。
+模型主线为官方DiffusionDrive V1，网络类名仍是V2TransfuserModel。Baseline使用fit.py；R2使用独立Status入口，包含专家路线Status、EMA、参数组LR与BEV权重实验，保持各自数据/源码/Checkpoint合同。Agent真实模型初始化与在线特征仍未完成。
 
-**从 [快速启动](快速启动.md) 开始**。Status 离线专家路线实验与原 Baseline/Scratch 保留各自的数据和恢复合同；当前配置、检查与运行状态见快速启动及实际实验目录，历史 PID、步数和旧 `control.json` 不作为实时状态。设计、验收和效果限制见 [训练主文档](tools/training/README.md)。
-
-| 要做什么 | 唯一入口 |
-|---|---|
-| 当前训练状态与边界 | [TRAINING_STATUS.md](TRAINING_STATUS.md) |
-| 当前状态、环境、磁盘检查、暂停、评估与 CPU 回归 | [快速启动.md](快速启动.md) |
-| 训练合同、配置状态索引、模块职责索引与历史实验 | [训练主文档](tools/training/README.md) |
-| 当前运行 / 数据管线 / 历史验证 / 冻结证据索引 | [工具与维护导航](tools/README.md) |
-| 数据读取、坐标、Camera/LiDAR 与监督 | [Adapter](tools/b2d_adapter/README.md) |
-| 模型、架构与迁移历史 | [架构导航](analysis/diffusiondrive_b2d_architecture/README.md) |
-| Agent 架构、接口与实现边界 | [Agent](agent/README.md) · [长期回归](docs/agent_test_report.md) |
-| 活跃问题、监控项与已解决问题 | [问题记录](docs/问题记录.md) |
-| 报告图片 | [Camera / LiDAR](analysis/diffusiondrive_b2d_architecture/v1_validation/report_sensor_examples/README.md) |
+| 内容 | 入口 |
+| --- | --- |
+| 环境、实际验证过的CLI与CPU回归 | [快速启动](快速启动.md) |
+| 训练状态记录及实时状态边界 | [TRAINING_STATUS.md](TRAINING_STATUS.md) |
+| 训练/恢复合同与实验索引 | [训练主文档](tools/training/README.md) |
+| Adapter输入、坐标与标签合同 | [Adapter](tools/b2d_adapter/README.md) |
+| Agent接口与未完成能力 | [Agent](agent/README.md) · [长期测试说明](docs/agent_test_report.md) |
+| 问题与复现 | [问题记录](docs/问题记录.md) |
+| 本次发布范围与外部资产 | [发布清单](analysis/release_refactor/release_file_manifest.md) · [资源Manifest](tools/release/resources.json) |
+| 验收结果与合并限制 | [发布就绪结论](analysis/release_refactor/release_readiness.md) |
 | 文件维护规则 | [AGENTS.md](AGENTS.md) |
-| 代码版本、删除清单与历史恢复 | [开发留痕](outputs/project_history/README.md) |
 
-目录职责：`tools/` 为 Adapter、训练与验证代码/配置；`agent/` 为部署框架；`tests/` 为长期 Agent 回归，历史 Adapter 回归保留在 `tools/validation/`；`docs/` 为长期设计与问题记录；`analysis/` 为既有研究及冻结验收证据；`outputs/` 为运行产物；`repositories/` 为独立官方仓库，不做目录美化迁移。
+官方V1按.gitmodules和Git树中的固定提交管理，已有scheduler兼容补丁独立保存在tools/release/patches/，不覆盖或重新克隆当前本地仓库。V2历史源码继续本地保留，来源提交及既有Python补丁记录在资源Manifest中。
 
-**当前/冻结边界：** `analysis/**/v1_validation/`、`analysis/data_interface_analysis/`、历史配置/Checkpoint/Manifest/SQLite 和 `outputs/diffusiondrive_v1/assets/` 是冻结证据或运行资源，不按“旧文件”批量删除或改写。配置状态与模块职责见训练主文档；历史实验只作为复现依据，不是当前操作入口。
+研究文本、冻结analysis证据和outputs运行资产留在本地，不进入普通代码发布范围。outputs包含必要权重、地图、解码环境、注册与索引，排除Git不表示可删除。历史架构/来源/开发留痕仍保留原路径，其本地索引不作为远程代码包已携带的承诺。

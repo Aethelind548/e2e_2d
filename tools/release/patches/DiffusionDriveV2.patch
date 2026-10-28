@@ -1,0 +1,22 @@
+diff --git a/navsim/agents/diffusiondrive/transfuser_backbone.py b/navsim/agents/diffusiondrive/transfuser_backbone.py
+index a06b699..54ac29a 100644
+--- a/navsim/agents/diffusiondrive/transfuser_backbone.py
++++ b/navsim/agents/diffusiondrive/transfuser_backbone.py
+@@ -16,13 +16,15 @@ from navsim.agents.diffusiondrive.transfuser_config import TransfuserConfig
+ class TransfuserBackbone(nn.Module):
+     """Multi-scale Fusion Transformer for image + LiDAR feature fusion."""
+ 
+-    def __init__(self, config: TransfuserConfig):
++    def __init__(self, config: TransfuserConfig, image_pretrained: bool = True):
+ 
+         super().__init__()
+         self.config = config
+         try:
+-            self.image_encoder = timm.create_model(config.image_architecture, pretrained=True, features_only=True)
++            self.image_encoder = timm.create_model(config.image_architecture, pretrained=image_pretrained, features_only=True)
+         except Exception as e:
++            if not image_pretrained:
++                raise
+             print(f"Failed to load image encoder with error: {e}")
+             self.image_encoder = timm.create_model(config.image_architecture, pretrained=True, features_only=True,
+                                                    pretrained_cfg_overlay=dict(file=config.bkb_path))

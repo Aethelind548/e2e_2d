@@ -1,0 +1,698 @@
+{
+  "schema": "diffusiondrive-v1-release-resources-v1",
+  "version": "release-v1-20261028",
+  "date": "2026-10-28",
+  "scope": "source release plus external resource description; not a data/model bundle",
+  "upstreams": [
+    {
+      "path": "repositories/DiffusionDrive",
+      "url": "https://github.com/hustvl/DiffusionDrive.git",
+      "commit": "9b52ed0ec06b073d82d6f392ab084c7b301c8681",
+      "license": "MIT",
+      "license_copy": "tools/release/licenses/HUST_Vision_Lab.LICENSE",
+      "patch": "tools/release/patches/DiffusionDrive.patch",
+      "patch_sha256": "aa63d6894dd41274953e2add550f667d7b7586beae894b697566aaf0118b0366",
+      "role": "official-v1-runtime"
+    },
+    {
+      "path": "repositories/DiffusionDriveV2",
+      "url": "https://github.com/hustvl/DiffusionDriveV2.git",
+      "commit": "1cd12a1e155c34dcc471261835444c8d5587580b",
+      "license": "MIT",
+      "license_copy": "tools/release/licenses/HUST_Vision_Lab.LICENSE",
+      "patch": "tools/release/patches/DiffusionDriveV2.patch",
+      "patch_sha256": "d60a3fed42e4471dd62abe4ca63537d61d66be8887c157a8d86440e6bd63d63b",
+      "role": "historical-research"
+    }
+  ],
+  "location_parameters": {
+    "workspace": "checkout root",
+    "data_root": "Bench2Drive V0.0.4/v1",
+    "map_root": "directory containing configured OpenDRIVE map files",
+    "experiment_root": "explicit actual R2 experiment directory",
+    "feature_baseline_cache_a": "explicit frozen or registered relocated payload root; verify original owner/UUID via runtime reader",
+    "feature_baseline_cache_b": "explicit frozen or registered relocated payload root; verify original owner/UUID via runtime reader",
+    "feature_remaining_20261015_cache_a": "explicit frozen or registered relocated payload root; verify original owner/UUID via runtime reader",
+    "feature_remaining_20261015_cache_b": "explicit frozen or registered relocated payload root; verify original owner/UUID via runtime reader",
+    "feature_remaining_20261015_cache_system": "explicit frozen or registered relocated payload root; verify original owner/UUID via runtime reader",
+    "target_baseline_targets_data": "explicit frozen or registered relocated payload root; verify original owner/UUID via runtime reader",
+    "target_compatible_full_recovery_compatible": "explicit frozen or registered relocated payload root; verify original owner/UUID via runtime reader",
+    "target_historical26_targets_recovery_irrelevant_v1": "explicit frozen or registered relocated payload root; verify original owner/UUID via runtime reader",
+    "target_historical28_isolated_retry_audit": "explicit frozen or registered relocated payload root; verify original owner/UUID via runtime reader",
+    "target_projected_full_recovery_projected": "explicit frozen or registered relocated payload root; verify original owner/UUID via runtime reader"
+  },
+  "profiles": {
+    "baseline": {
+      "entry_files": [
+        "tools/training/diffusiondrive_v1/fit.py"
+      ],
+      "config_files": [
+        "tools/training/diffusiondrive_v1/baseline_bs8_acc8_lr1e4_scratch.json"
+      ],
+      "fit_execution_contract": true,
+      "source_sha256": {
+        "tools/b2d_adapter/camera_adapter.py": "ff24f2de4be25c1f79fd25b25683862eea6e1c718534feaf2fcc6bc3e0f6304a",
+        "tools/b2d_adapter/native_builders.py": "37e7dbf83013f31f8fe66ee97251e42dade9cfdbd49115347ec8e3e77a48538b",
+        "tools/b2d_adapter/native_config.py": "f94a1f452c5b7c551bcca5119ffb34f16979e4d5eed1110591f393e84ae1805f",
+        "tools/b2d_adapter/config.py": "764ea933c0348f6b06eb8fe02271004c3e2a8d945a14d0330559190dfde9e01f",
+        "tools/b2d_adapter/v1_builders.py": "ec0af7f25e7f273ffb73fcefb7fd43fbf9f643d58ab4a6b1ff65f36aba41cb3c",
+        "tools/b2d_adapter/frame_reader.py": "699a36f4184a3af4ffb0e666a277173b3e990278b909afe413d13d0d61fd1f76",
+        "tools/b2d_adapter/route_index.py": "ae2ecbde3e9fa088e364717bf0f38639ce09c9cadb5b0431ef26ef09cf44970b",
+        "tools/b2d_adapter/object_adapter.py": "d68552fd56f76337a48370a6b2916aaf54d322d3728cf6e231f70739643dbb23",
+        "tools/b2d_adapter/coordinate_transform.py": "6c2bb566a86b51663fa0a13b9ee34e98c7bd4ae7275f9f311b023eed57d01ce3",
+        "tools/b2d_adapter/navsim_bridge.py": "6bbf36b8c48cbfbe1f75b02a26d37f88518195e3def83511c7beabb40143e191",
+        "tools/b2d_adapter/native_navigation.py": "40c62afa0088974693d18398a75cdb7a29f8160db4b409a817f1aa4df9eb8934",
+        "tools/b2d_adapter/lidar_adapter.py": "4f804df04f962f540767d1c6cbe401d8272dc3b5a8cfb9746b256473ecf9a759",
+        "tools/b2d_adapter/lidar_decode.py": "9d2083603aebddb11c264da8a62d588639abd786bfe35d5d2726409da5131af2",
+        "tools/b2d_adapter/v1_bev.py": "eaa27677f2192aad55094e219565d682230af7d1f1f67783bd84031708f57a08",
+        "tools/b2d_adapter/v1_label_rules.py": "dceb8f0ba4d7ce3b94813560492a245492f7cf83c009fcf9ebd5fa8f6aa334ac",
+        "tools/b2d_adapter/v1_geometry.py": "7da415b5f1027050225817ecb65de90e89ca7043ae913a4770b96587159acc89",
+        "tools/b2d_adapter/trajectory_target.py": "8974b4a4df02cd40e4334870f669357f7214733fb7e17541b6a22651802133a4",
+        "tools/b2d_adapter/temporal_sampler.py": "281f0ac7b352b1bd0b203a69a8fea3dcbd7619211fdc4faf08e7b8c29d7219b0",
+        "tools/training/diffusiondrive_v1/features_cache.py": "bbb3a0ea000b080f25993967e254319d02e30195d80ac5e7d2b4dbca51003250",
+        "tools/training/diffusiondrive_v1/target_cache.py": "c73e1b3e1d4fee6d729338b02fe86022d126e45aa268d3dba86051ed622c9734",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_agent.py": "263239dd8f4a647e2d2be0856c62d64ff6806e6923961f9aabb24510726cf6c6",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_loss.py": "5b70e51da6ac10d3b1f2c805db689b0ff8fe738d960a224ea578c19d529d7790",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_features.py": "4b80250c498b53396c8515cc0f5927f8f71aed9b6825a750ff440431af2ff6c3",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_model_v2.py": "84a7f824fa51f172d6d2a940ad566a96eb253f26231065f5283bf6507701a697",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_config.py": "9be65fcc34a7ea9d2d1662adf70e3aa6c4807faf049c168956f3e12adb25cefb",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_backbone.py": "53cb334652860634cf2cd9c4867b270465631f5f1e33b2e4c7bcadfc448471a3",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_callback.py": "e56c1af7d9bafbf994602727719c4579462757005cfe500ce8482567cc06249b",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/modules/scheduler.py": "67749942c4841d105b8e8e03ce7e500734cc7f41eb4683a973fa624eb5d51ca6",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/modules/multimodal_loss.py": "699d732b1c8d858ed8b5cd72f31607ed433e031c12441c46baac697a463283fd",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/modules/conditional_unet1d.py": "0d6d589fb29d6e076b77bddbb3d7ab6b86c216c29e13391fb532d661a13f5cf7",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/modules/blocks.py": "de879c63cbfaf8fe96437cb84f4a9c28392625ec6706132032afceed4ffc2776",
+        "repositories/DiffusionDrive/navsim/planning/training/agent_lightning_module.py": "ec26775ae6681135a313a74ec03976bcd5b7224db93ae10584381bf617ffa336"
+      },
+      "unverified": [
+        "Frozen absolute paths and checkpoint/source identities require target-host validation; never auto-rewrite pins."
+      ]
+    },
+    "r2": {
+      "entry_files": [
+        "tools/training/diffusiondrive_v1/status_experimental_train.py",
+        "tools/training/diffusiondrive_v1/status_route_eval.py"
+      ],
+      "config_files": [
+        "tools/training/diffusiondrive_v1/experiments/status_r2_cos100_ema5ep_bevw3_20261027.json",
+        "tools/training/diffusiondrive_v1/baseline_bs8_acc8_lr6e4_official_route_split.json"
+      ],
+      "fit_execution_contract": false,
+      "source_sha256": {
+        "tools/b2d_adapter/camera_adapter.py": "ff24f2de4be25c1f79fd25b25683862eea6e1c718534feaf2fcc6bc3e0f6304a",
+        "tools/b2d_adapter/native_builders.py": "37e7dbf83013f31f8fe66ee97251e42dade9cfdbd49115347ec8e3e77a48538b",
+        "tools/b2d_adapter/native_config.py": "f94a1f452c5b7c551bcca5119ffb34f16979e4d5eed1110591f393e84ae1805f",
+        "tools/b2d_adapter/config.py": "764ea933c0348f6b06eb8fe02271004c3e2a8d945a14d0330559190dfde9e01f",
+        "tools/b2d_adapter/v1_builders.py": "ec0af7f25e7f273ffb73fcefb7fd43fbf9f643d58ab4a6b1ff65f36aba41cb3c",
+        "tools/b2d_adapter/frame_reader.py": "699a36f4184a3af4ffb0e666a277173b3e990278b909afe413d13d0d61fd1f76",
+        "tools/b2d_adapter/route_index.py": "ae2ecbde3e9fa088e364717bf0f38639ce09c9cadb5b0431ef26ef09cf44970b",
+        "tools/b2d_adapter/object_adapter.py": "d68552fd56f76337a48370a6b2916aaf54d322d3728cf6e231f70739643dbb23",
+        "tools/b2d_adapter/coordinate_transform.py": "6c2bb566a86b51663fa0a13b9ee34e98c7bd4ae7275f9f311b023eed57d01ce3",
+        "tools/b2d_adapter/navsim_bridge.py": "6bbf36b8c48cbfbe1f75b02a26d37f88518195e3def83511c7beabb40143e191",
+        "tools/b2d_adapter/native_navigation.py": "40c62afa0088974693d18398a75cdb7a29f8160db4b409a817f1aa4df9eb8934",
+        "tools/b2d_adapter/lidar_adapter.py": "4f804df04f962f540767d1c6cbe401d8272dc3b5a8cfb9746b256473ecf9a759",
+        "tools/b2d_adapter/lidar_decode.py": "9d2083603aebddb11c264da8a62d588639abd786bfe35d5d2726409da5131af2",
+        "tools/b2d_adapter/v1_bev.py": "eaa27677f2192aad55094e219565d682230af7d1f1f67783bd84031708f57a08",
+        "tools/b2d_adapter/v1_label_rules.py": "dceb8f0ba4d7ce3b94813560492a245492f7cf83c009fcf9ebd5fa8f6aa334ac",
+        "tools/b2d_adapter/v1_geometry.py": "7da415b5f1027050225817ecb65de90e89ca7043ae913a4770b96587159acc89",
+        "tools/b2d_adapter/trajectory_target.py": "8974b4a4df02cd40e4334870f669357f7214733fb7e17541b6a22651802133a4",
+        "tools/b2d_adapter/temporal_sampler.py": "281f0ac7b352b1bd0b203a69a8fea3dcbd7619211fdc4faf08e7b8c29d7219b0",
+        "tools/training/diffusiondrive_v1/features_cache.py": "bbb3a0ea000b080f25993967e254319d02e30195d80ac5e7d2b4dbca51003250",
+        "tools/training/diffusiondrive_v1/target_cache.py": "c73e1b3e1d4fee6d729338b02fe86022d126e45aa268d3dba86051ed622c9734",
+        "tools/training/diffusiondrive_v1/status_experimental_train.py": "9348c216fb3cc5ae3d91f19d27009924c5febd0e0e2e3d7d8a950f7a5856a3a7",
+        "tools/training/diffusiondrive_v1/experimental_status_reader.py": "8a0b3e73c69802d1f577778d21b239a1e9283533f6e547e89814ce20db139e0f",
+        "tools/training/diffusiondrive_v1/bf16_policy.py": "bc6a55c962327ac55975cb0bb23678e1d0836d08f611f5256296ee92e2dfd146",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_agent.py": "263239dd8f4a647e2d2be0856c62d64ff6806e6923961f9aabb24510726cf6c6",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_loss.py": "5b70e51da6ac10d3b1f2c805db689b0ff8fe738d960a224ea578c19d529d7790",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_features.py": "4b80250c498b53396c8515cc0f5927f8f71aed9b6825a750ff440431af2ff6c3",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_model_v2.py": "84a7f824fa51f172d6d2a940ad566a96eb253f26231065f5283bf6507701a697",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_config.py": "9be65fcc34a7ea9d2d1662adf70e3aa6c4807faf049c168956f3e12adb25cefb",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_backbone.py": "53cb334652860634cf2cd9c4867b270465631f5f1e33b2e4c7bcadfc448471a3",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/transfuser_callback.py": "e56c1af7d9bafbf994602727719c4579462757005cfe500ce8482567cc06249b",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/modules/scheduler.py": "67749942c4841d105b8e8e03ce7e500734cc7f41eb4683a973fa624eb5d51ca6",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/modules/multimodal_loss.py": "699d732b1c8d858ed8b5cd72f31607ed433e031c12441c46baac697a463283fd",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/modules/conditional_unet1d.py": "0d6d589fb29d6e076b77bddbb3d7ab6b86c216c29e13391fb532d661a13f5cf7",
+        "repositories/DiffusionDrive/navsim/agents/diffusiondrive/modules/blocks.py": "de879c63cbfaf8fe96437cb84f4a9c28392625ec6706132032afceed4ffc2776",
+        "repositories/DiffusionDrive/navsim/planning/training/agent_lightning_module.py": "ec26775ae6681135a313a74ec03976bcd5b7224db93ae10584381bf617ffa336"
+      },
+      "unverified": [
+        "Actual R2 launch/raw complete checkpoint and exact resume contract are unavailable.",
+        "This manifest does not remap frozen configuration absolute paths; a separate versioned deployment contract is required.",
+        "EMA evaluation weights differ from raw optimizer-matching resume artifacts."
+      ]
+    },
+    "agent": {
+      "entry_files": [
+        "agent/bench2drive_agent.py",
+        "agent/environment_interface.py",
+        "agent/planning/model_loader.py",
+        "agent/adapters/online_feature_adapter.py"
+      ],
+      "config_files": [
+        "agent/config/default.json"
+      ],
+      "fit_execution_contract": false,
+      "unverified": [
+        "Online LiDAR, real V1 initialization/Checkpoint binding and prediction remain pending.",
+        "CARLA/Leaderboard environment and closed-loop behavior have not been accepted."
+      ]
+    }
+  },
+  "resources": [
+    {
+      "id": "plan_anchor",
+      "path": "{workspace}/outputs/diffusiondrive_v1/assets/official_kmeans_navsim_traj_20.npy",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "fixed official 20x8x2 anchor",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "2d341e525d7882ee5e916c67d37bea571e4c793cf801f0fff3eff59d38b20d98"
+    },
+    {
+      "id": "image_backbone",
+      "path": "{workspace}/outputs/diffusiondrive_v1/assets/resnet34_a1_0-46f8f793.pth",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "local ResNet34 weights; no download fallback",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "46f8f7930534e471b9a139b278896db5d11d17b8ea3fcc90ad43deed9e5e27d7"
+    },
+    {
+      "id": "laz_decoder_python",
+      "path": "{workspace}/outputs/diffusiondrive_v1/assets/laz_decoder_env/bin/python",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "separate LAZ Python; rebuild target environment instead of copying virtualenv",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "bench2drive_v004_v1",
+      "path": "{data_root}",
+      "kind": "directory",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "explicit v1 data root; never recursively scan from preflight",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "map_Town01",
+      "path": "{map_root}/Town01.xodr",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "OpenDRIVE map source; original frozen config is not remapped by this manifest",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "97a7f6ac67812567e5c8ee0599cd823b23f80f30f3f97c502212e38b72e2b709"
+    },
+    {
+      "id": "map_Town02",
+      "path": "{map_root}/Town02.xodr",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "OpenDRIVE map source; original frozen config is not remapped by this manifest",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "953c05f17def231239ffcadba3307628a82d0d335b67b4e29c3098f7aed1dd7d"
+    },
+    {
+      "id": "map_Town03",
+      "path": "{map_root}/Town03.xodr",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "OpenDRIVE map source; original frozen config is not remapped by this manifest",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "abf177bcd9b66cfefb7ac4919f6456815f1384f4229f1343c8a6a90bbb7713c9"
+    },
+    {
+      "id": "map_Town04",
+      "path": "{map_root}/Town04.xodr",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "OpenDRIVE map source; original frozen config is not remapped by this manifest",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "4dddd1560ab7812b0e89cd4a523d8b6f2b93947eafb496d9eeb83cc772116c85"
+    },
+    {
+      "id": "map_Town05",
+      "path": "{map_root}/Town05.xodr",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "OpenDRIVE map source; original frozen config is not remapped by this manifest",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "7edc53b0be840e177598da7a4ed9571146d7b2595ce280d154c90f92e8a48851"
+    },
+    {
+      "id": "map_Town06",
+      "path": "{map_root}/Town06.xodr",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "OpenDRIVE map source; original frozen config is not remapped by this manifest",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "a90b613175fa837fdc128ddfaf5ddad25797b128fdbd8cd945974bc21a60496e"
+    },
+    {
+      "id": "map_Town07",
+      "path": "{map_root}/Town07.xodr",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "OpenDRIVE map source; original frozen config is not remapped by this manifest",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "be730652769e993e27f748ba5793dba9e49d299205146a7a8db0bcd17af877bf"
+    },
+    {
+      "id": "map_Town10HD",
+      "path": "{map_root}/Town10HD.xodr",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "OpenDRIVE map source; original frozen config is not remapped by this manifest",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "5d883b799f634030af92be1e9d79d107845540ba04338e8c60e095be1aef7be7"
+    },
+    {
+      "id": "map_Town11",
+      "path": "{map_root}/Town11.xodr",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "OpenDRIVE map source; original frozen config is not remapped by this manifest",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "52ffa8412425b87394afa6a37bf0b688c0584a24df6ae88fea53866acb91e222"
+    },
+    {
+      "id": "map_Town12",
+      "path": "{map_root}/Town12.xodr",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "OpenDRIVE map source; original frozen config is not remapped by this manifest",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "26fa53d4902ac3397d35f948969f0c77c1bf023755ede2c67edf00bef817151f"
+    },
+    {
+      "id": "map_Town13",
+      "path": "{map_root}/Town13.xodr",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "OpenDRIVE map source; original frozen config is not remapped by this manifest",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "5354326f2fe4d26f0dcb5c82acf462257e638278363ab7adecb97ec3aa1f426f"
+    },
+    {
+      "id": "map_Town15",
+      "path": "{map_root}/Town15.xodr",
+      "kind": "file",
+      "profiles": [
+        "baseline",
+        "r2"
+      ],
+      "purpose": "OpenDRIVE map source; original frozen config is not remapped by this manifest",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "8e9c69cfb3e750ace3e5d6b057e46786952a073c3924f319bbabb1a166dc2c17"
+    },
+    {
+      "id": "r2_paired_manifest.json",
+      "path": "{workspace}/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/paired_manifest.json",
+      "kind": "file",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "frozen data/split/index identity",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "r2_paired_index.sqlite",
+      "path": "{workspace}/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/paired_index.sqlite",
+      "kind": "file",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "frozen data/split/index identity",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "r2_status_training_dataset_manifest.json",
+      "path": "{workspace}/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_dataset_manifest.json",
+      "kind": "file",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "frozen data/split/index identity",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "r2_status_training_sample_index.jsonl",
+      "path": "{workspace}/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_sample_index.jsonl",
+      "kind": "file",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "frozen data/split/index identity",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "r2_dataset_split_manifest.json",
+      "path": "{workspace}/outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/dataset_split_manifest.json",
+      "kind": "file",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "frozen data/split/index identity",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "feature_sources_baseline",
+      "path": "{workspace}/outputs/diffusiondrive_v1/features_service",
+      "kind": "directory",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "frozen producer 79d47303b6c3549102fe7b8dfa7b7df0c9575de4addea7f6ec94e21e716a5ce9",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "feature_sources_remaining_20261015",
+      "path": "{workspace}/outputs/diffusiondrive_v1/features_jobs/remaining_20261015",
+      "kind": "directory",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "frozen producer 79d47303b6c3549102fe7b8dfa7b7df0c9575de4addea7f6ec94e21e716a5ce9",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "target_sources_baseline",
+      "path": "{workspace}/outputs/diffusiondrive_v1/targets_full_v1",
+      "kind": "directory",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "frozen producer 7e341e1bb88667badbd9513d37c5adee917a56e040e2bbff634e792542800bdd",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "target_sources_compatible",
+      "path": "{workspace}/outputs/diffusiondrive_v1/targets_full_recovery_20261017_r2/compatible",
+      "kind": "directory",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "frozen producer 4c8d5956a0eccda778b48ab160d86c075785afa9d85ac9f0c232bdb6a6f0275c",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "target_sources_historical26",
+      "path": "{workspace}/outputs/diffusiondrive_v1/targets_recovery_irrelevant_v1",
+      "kind": "directory",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "frozen producer 8120da3e563e312c7a4d286a3f4467599ba0701915c54bda7e27442a4367b38e",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "target_sources_historical28",
+      "path": "{workspace}/outputs/diffusiondrive_v1/target_retry_audit_20261017",
+      "kind": "directory",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "frozen producer ca4b63c8a65d386b6cc044a818b28e4a3f6688433d36abd589012cb635adf400",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "target_sources_projected",
+      "path": "{workspace}/outputs/diffusiondrive_v1/targets_full_recovery_20261017_r2/projected",
+      "kind": "directory",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "frozen producer 30a92b2dfc2373d88171444dadd1047beeeb748644163810c1a4aa9b7c66a983",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "feature_storage_registration",
+      "path": "{workspace}/outputs/diffusiondrive_v1/system_features_to_pssd_20261019/storage_registration.json",
+      "kind": "file",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "owner/producer/relocation registration; never rewrite in place",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "8a97d4a3792c81623ce5468f7b841bc23a2a504babd43e8081a9d3e0e2699f15"
+    },
+    {
+      "id": "target_storage_registration",
+      "path": "{workspace}/outputs/diffusiondrive_v1/targets_to_pssd_20261024/target_storage_registration_historical28_v2.json",
+      "kind": "file",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "owner/producer/relocation registration; never rewrite in place",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only",
+      "expected_sha256": "f02431f41c8cc10ff054cfdeabbec80bf6167c804cecb4d9d7912206004c1ce3"
+    },
+    {
+      "id": "r2_raw_resume_checkpoint",
+      "path": "{experiment_root}/checkpoints/last.ckpt",
+      "kind": "file",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "actual R2 raw full checkpoint; no substitution of historical evaluation copies",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "r2_launch_identity",
+      "path": "{experiment_root}/launch.json",
+      "kind": "file",
+      "profiles": [
+        "r2"
+      ],
+      "purpose": "actual run identity, not historical profile defaults",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "baseline_paired_manifest",
+      "path": "{workspace}/analysis/diffusiondrive_b2d_architecture/v1_validation/baseline_training_preflight/baseline_pssd_manifest.json",
+      "kind": "file",
+      "profiles": [
+        "baseline"
+      ],
+      "purpose": "Baseline-only pairing; distinct from R2 split",
+      "retention": "keep-original-identity; not regular Git payload",
+      "inspection": "metadata-only"
+    },
+    {
+      "id": "feature_baseline_cache_a",
+      "profiles": [
+        "r2"
+      ],
+      "path": "{feature_baseline_cache_a}",
+      "kind": "directory",
+      "purpose": "payload root described by paired manifest; resolve effective registered location, not stale original location",
+      "producer_sha256": "79d47303b6c3549102fe7b8dfa7b7df0c9575de4addea7f6ec94e21e716a5ce9",
+      "expected_root_id": "cache_a",
+      "expected_uuid": "48EA01DBEA01C5E2",
+      "inspection": "metadata-only; owner and relocation identity require strict runtime reader",
+      "retention": "never delete original or registered payloads"
+    },
+    {
+      "id": "feature_baseline_cache_b",
+      "profiles": [
+        "r2"
+      ],
+      "path": "{feature_baseline_cache_b}",
+      "kind": "directory",
+      "purpose": "payload root described by paired manifest; resolve effective registered location, not stale original location",
+      "producer_sha256": "79d47303b6c3549102fe7b8dfa7b7df0c9575de4addea7f6ec94e21e716a5ce9",
+      "expected_root_id": "cache_b",
+      "expected_uuid": "F8E4AE34E4ADF552",
+      "inspection": "metadata-only; owner and relocation identity require strict runtime reader",
+      "retention": "never delete original or registered payloads"
+    },
+    {
+      "id": "feature_remaining_20261015_cache_a",
+      "profiles": [
+        "r2"
+      ],
+      "path": "{feature_remaining_20261015_cache_a}",
+      "kind": "directory",
+      "purpose": "payload root described by paired manifest; resolve effective registered location, not stale original location",
+      "producer_sha256": "79d47303b6c3549102fe7b8dfa7b7df0c9575de4addea7f6ec94e21e716a5ce9",
+      "expected_root_id": "cache_a",
+      "expected_uuid": "48EA01DBEA01C5E2",
+      "inspection": "metadata-only; owner and relocation identity require strict runtime reader",
+      "retention": "never delete original or registered payloads"
+    },
+    {
+      "id": "feature_remaining_20261015_cache_b",
+      "profiles": [
+        "r2"
+      ],
+      "path": "{feature_remaining_20261015_cache_b}",
+      "kind": "directory",
+      "purpose": "payload root described by paired manifest; resolve effective registered location, not stale original location",
+      "producer_sha256": "79d47303b6c3549102fe7b8dfa7b7df0c9575de4addea7f6ec94e21e716a5ce9",
+      "expected_root_id": "cache_b",
+      "expected_uuid": "F8E4AE34E4ADF552",
+      "inspection": "metadata-only; owner and relocation identity require strict runtime reader",
+      "retention": "never delete original or registered payloads"
+    },
+    {
+      "id": "feature_remaining_20261015_cache_system",
+      "profiles": [
+        "r2"
+      ],
+      "path": "{feature_remaining_20261015_cache_system}",
+      "kind": "directory",
+      "purpose": "payload root described by paired manifest; resolve effective registered location, not stale original location",
+      "producer_sha256": "79d47303b6c3549102fe7b8dfa7b7df0c9575de4addea7f6ec94e21e716a5ce9",
+      "expected_root_id": "cache_system",
+      "expected_uuid": "932410d9-a546-40dd-aeda-09e390df924b",
+      "inspection": "metadata-only; owner and relocation identity require strict runtime reader",
+      "retention": "never delete original or registered payloads"
+    },
+    {
+      "id": "target_baseline_targets_data",
+      "profiles": [
+        "r2"
+      ],
+      "path": "{target_baseline_targets_data}",
+      "kind": "directory",
+      "purpose": "payload root described by paired manifest; resolve effective registered location, not stale original location",
+      "producer_sha256": "7e341e1bb88667badbd9513d37c5adee917a56e040e2bbff634e792542800bdd",
+      "expected_root_id": "targets_data",
+      "expected_uuid": "87c96c26-602b-4c86-87c3-5576852d6cd6",
+      "inspection": "metadata-only; owner and relocation identity require strict runtime reader",
+      "retention": "never delete original or registered payloads"
+    },
+    {
+      "id": "target_compatible_full_recovery_compatible",
+      "profiles": [
+        "r2"
+      ],
+      "path": "{target_compatible_full_recovery_compatible}",
+      "kind": "directory",
+      "purpose": "payload root described by paired manifest; resolve effective registered location, not stale original location",
+      "producer_sha256": "4c8d5956a0eccda778b48ab160d86c075785afa9d85ac9f0c232bdb6a6f0275c",
+      "expected_root_id": "full_recovery_compatible",
+      "expected_uuid": "87c96c26-602b-4c86-87c3-5576852d6cd6",
+      "inspection": "metadata-only; owner and relocation identity require strict runtime reader",
+      "retention": "never delete original or registered payloads"
+    },
+    {
+      "id": "target_historical26_targets_recovery_irrelevant_v1",
+      "profiles": [
+        "r2"
+      ],
+      "path": "{target_historical26_targets_recovery_irrelevant_v1}",
+      "kind": "directory",
+      "purpose": "payload root described by paired manifest; resolve effective registered location, not stale original location",
+      "producer_sha256": "8120da3e563e312c7a4d286a3f4467599ba0701915c54bda7e27442a4367b38e",
+      "expected_root_id": "targets_recovery_irrelevant_v1",
+      "expected_uuid": "87c96c26-602b-4c86-87c3-5576852d6cd6",
+      "inspection": "metadata-only; owner and relocation identity require strict runtime reader",
+      "retention": "never delete original or registered payloads"
+    },
+    {
+      "id": "target_historical28_isolated_retry_audit",
+      "profiles": [
+        "r2"
+      ],
+      "path": "{target_historical28_isolated_retry_audit}",
+      "kind": "directory",
+      "purpose": "payload root described by paired manifest; resolve effective registered location, not stale original location",
+      "producer_sha256": "ca4b63c8a65d386b6cc044a818b28e4a3f6688433d36abd589012cb635adf400",
+      "expected_root_id": "isolated_retry_audit",
+      "expected_uuid": "932410d9-a546-40dd-aeda-09e390df924b",
+      "inspection": "metadata-only; owner and relocation identity require strict runtime reader",
+      "retention": "never delete original or registered payloads"
+    },
+    {
+      "id": "target_projected_full_recovery_projected",
+      "profiles": [
+        "r2"
+      ],
+      "path": "{target_projected_full_recovery_projected}",
+      "kind": "directory",
+      "purpose": "payload root described by paired manifest; resolve effective registered location, not stale original location",
+      "producer_sha256": "30a92b2dfc2373d88171444dadd1047beeeb748644163810c1a4aa9b7c66a983",
+      "expected_root_id": "full_recovery_projected",
+      "expected_uuid": "87c96c26-602b-4c86-87c3-5576852d6cd6",
+      "inspection": "metadata-only; owner and relocation identity require strict runtime reader",
+      "retention": "never delete original or registered payloads"
+    }
+  ]
+}
