@@ -66,3 +66,26 @@ def test_perfect_trajectory_has_zero_error():
     result = trajectory_errors(target, target)
     assert result['ade_m'] == 0.0 and result['fde_m'] == 0.0
     assert result['heading_mae_rad'] == 0.0
+
+
+def test_public_cli_delegates_to_current_evaluator(monkeypatch):
+    from tools.training.diffusiondrive_v1 import status_route_eval, status_route_eval_core
+
+    calls = []
+    monkeypatch.setattr(status_route_eval_core, 'main', lambda: calls.append('current') or 17)
+    assert status_route_eval.main() == 17
+    assert calls == ['current']
+
+
+def test_public_cli_exposes_current_arguments(monkeypatch, capsys):
+    import pytest
+    from tools.training.diffusiondrive_v1 import status_route_eval
+
+    monkeypatch.setattr('sys.argv', ['status_route_eval', '--help'])
+    with pytest.raises(SystemExit) as exc:
+        status_route_eval.main()
+    assert exc.value.code == 0
+    help_text = capsys.readouterr().out
+    assert '--experiment-config' in help_text
+    assert 'LABEL=PATH' in help_text
+    assert '--base-config' not in help_text
