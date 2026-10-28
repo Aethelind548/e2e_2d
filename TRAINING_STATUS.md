@@ -2,13 +2,11 @@
 
 > **建立前提：** 需要一个稳定的当前训练状态入口，避免从历史报告/旧 Checkpoint 推断当前任务。
 > **解决问题：** 记录正式实验、PID、数据/Split、初始化、验证与 Test 使用边界。
-> **适用范围：** 当前 `status_r2_cos100_ema5ep_bevw3`（R2，从 R1 epoch 2 续训至 100 epoch，**已于 epoch 21 暂停**）。
+> **适用范围：** 当前 `status_r2_cos100_ema5ep_bevw3`（R2，从 R1 epoch 2 续训至 100 epoch，**2026-10-28 已从 epoch 21 断点恢复**）。
 > **不包含：** 不替代 `快速启动.md` 的操作命令，不追认历史实验指标。
-> **当前状态：** **PAUSED**（2026-10-27 15:40，epoch 21 完整跑完含验证与保存后按用户要求停止）。R2 相对 R1 改三项：余弦跨度 25→100 epoch、EMA `decay` 0.999→0.99992（5 epoch 窗口）、`bev_semantic_weight` 14→42。
+> **当前状态：** **RUNNING**（2026-10-28 16:38 恢复，supervisor 守护，从 epoch 22 继续）。R2 相对 R1 改三项：余弦跨度 25→100 epoch、EMA `decay` 0.999→0.99992（5 epoch 窗口）、`bev_semantic_weight` 14→42。
 > **相关代码：** `tools/training/diffusiondrive_v1/status_experimental_train.py`（v6）、`route_split.py`、`tests/training/test_lr_scale_guard.py`、`/tmp/r2_supervisor.sh`、`/tmp/r2_stop_after_epoch21.py`。
 > **最后更新：** 2026-10-27。
-
-发布注记（2026-10-28）：本文历史实验配置可能只在本地及基线提交保留，Git代码RC不承诺携带短A/B/C等旧实验；具体范围见[二轮发布审查](analysis/release_refactor/phase3/second_cleanup_review.md)。R1/R2配置仍随Git保留，原冻结身份不变。
 
 ## 当前实验（R2，已暂停）
 
@@ -19,9 +17,10 @@
 | 初始化 | 从 R1 `checkpoints/last.ckpt`（epoch 2 / step 7,512）full-resume |
 | 三项改动 | ① `scheduler_epochs=100`、`max_epochs=100`；② `ema_decay=0.99992`（12,520 步 ≈ 5 epoch 窗口）；③ `bev_semantic_weight=42`（官方 14 的 3 倍） |
 | 守护 | `/tmp/r2_supervisor.sh`：`setsid nohup` 提权，非 0 退出自动从最新 `last.ckpt` 重启，最多 20 次，冷却 120 s，状态写入 `supervisor.log` |
-| **状态** | **`state=paused`**，epoch 21 / 100 完整结束（step 55,088），按用户要求停止；全进程已退出，GPU 2.4 GB |
-| **断点** | `checkpoints/last.ckpt`（epoch 21 / step 55,088，SHA 以启动时重算为准）；EMA `num_updates=52,581` |
-| **恢复** | `setsid nohup /tmp/r2_supervisor.sh < /dev/null > /dev/null 2>&1 &`（supervisor 会自行取最新 `last.ckpt` 并钉 SHA） |
+| **状态** | **`state=running`**，epoch 22 / 100（step 55,088 起重跑 epoch 22） |
+| **断点** | `checkpoints/last.ckpt`（epoch 21 / step 55,088）；EMA `num_updates=52,581`；`decay=0.99992` |
+| **恢复** | `setsid nohup /tmp/r2_supervisor.sh < /dev/null > /dev/null 2>&1 &`（supervisor 自行取最新 `last.ckpt` 并钉 SHA） |
+| **恢复前提** | PSSD 与 YMTC 两个 NTFS 盘重启后**不会自动挂载**，必须先 `udisksctl mount -b /dev/nvme0n1p1`；supervisor 已内置 `mountpoint` 检查，缺盘会直接拒启而不是跑到一半才报文件缺失 |
 | **当前最佳** | `best-020-052584.ckpt`，`val/paper_loss=78.064`（ep21 为 78.632，退步 0.73%） |
 | LR 曲线 | 100-epoch 余弦：ep25 仍有 2.64e-4、ep50 1.58e-4、ep99 1.08e-6（旧 25-epoch 在 ep25 已降到 1e-6） |
 | 优化器 | AdamW，3 组：base 1.0×、image_encoder 0.5×、bev_semantic_head 0.5×；峰值 3e-4 / 1.5e-4 / 1.5e-4 |
@@ -114,7 +113,7 @@ LR 在此区间从 1.65e-4 降到约 1.05e-4。
 
 ## 训练边界
 
-- 截至2026-10-27记录，当前R2从R1完整断点续训后已暂停；cos50b保留为历史对照。2026-10-28发布环境无法读取外盘实时状态，不能据本文执行恢复。
+- 当前 R1 从头训练中，不加载任何旧 Status checkpoint；cos50b 保持暂停作为对照。
 - Test 仍未加载；评估仅使用 Validation（17,191 行）。
 - PSSD（`/dev/nvme0n1p1`）与 YMTC（`/dev/nvme1n1p3`）当前均已挂载；启动前仍须核对断点 SHA 与输出目录父级存在。
 - 判断收敛只看 `train/loss_epoch` 与 `val/paper_loss` 的间距；`val/loss` 仅作历史连续性参考，不用于选点或设阈值。
@@ -136,7 +135,7 @@ LR 在此区间从 1.65e-4 降到约 1.05e-4。
 - `scheduler_epochs` 必须 ≥ `max_epochs`，否则拒绝启动；
 - `--init-weights` 只加载 763 个权重张量；`--resume` 只接受本实验目录内完整断点，跨目录必须带 `--resume-sha256`；
 - 非有限 loss 或梯度立即停止；输出盘未挂载时拒绝 `mkdir`，避免把断盘写成系统盘目录；
-- 恢复目录以实际`resume_contract`、本实验配置和断点身份为准；R2允许本实验同目录完整恢复，跨目录必须显式SHA；原有历史断点保留。
+- 每次暂停后的续训须落到新的输出目录（`resume_contract` 的设计），旧目录保留全部历史 checkpoint。
 
 回归：`tests/training` **146 项通过**，含 lr_scale 守卫、调度器跨度注入、暂停封顶与真实 Lightning 端到端停止。
 
