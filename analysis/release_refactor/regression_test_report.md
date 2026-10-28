@@ -35,6 +35,8 @@
 
 ## 最终静态、发布与保护检查
 
-发布选择范围335个路径，Python AST检查268份通过；第一方绝对静态import悬空0处，历史Level2动态缺失依赖单独保留为未验证阻塞。legacy_main当前源码不再有调用；旧ROOT导入已移除。高置信私钥/Token/URL凭据模式0处；66份文件仍含历史本机路径，涉及431行，这些是冻结合同/历史文档的迁移风险，未静默脱敏改写SHA。扫描覆盖全部拟发布文本，非任意格式口令保证。
+发布选择范围336个路径，Python AST检查268份通过；第一方绝对静态import悬空0处，历史Level2动态缺失依赖单独保留为未验证阻塞。legacy_main当前源码不再有调用；旧ROOT导入已移除。高置信私钥/Token/URL凭据模式0处；66份文件仍含历史本机路径，涉及431行，这些是冻结合同/历史文档的迁移风险，未静默脱敏改写SHA。扫描覆盖全部拟发布文本，非任意格式口令保证。
 
 全部普通Git文件小于5 MiB，最大为冻结训练配置约3.37 MB；无数据/Checkpoint/数组/SQLite/环境目录。官方来源作为gitlink登记；原MIT原文与两个已有Python补丁随包，补丁reverse-check通过。原outputs/analysis资产元数据、官方仓库与producer/训练源码保护检查均无变化，详情在protected_checks.json。
+
+最后Git空白检查识别了原上游patch中的既有空白上下文。为保留补丁原字节，.gitattributes仅对tools/release/patches/*.patch设置-text/-whitespace；项目源码仍按正常空白规则检查。没有重写补丁或更改其SHA，路径限定后最终diff --check通过。此项仅Git资产属性，不涉及运行代码，无需重复模型回归。

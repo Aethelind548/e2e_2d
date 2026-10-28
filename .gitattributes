@@ -1,0 +1,3 @@
+# Preserve upstream patch bytes, including their original context whitespace.
+# Project source files retain the normal whitespace checks.
+tools/release/patches/*.patch -text -whitespace
