@@ -28,6 +28,72 @@
         "baseline",
         "r2"
       ]
+    },
+    {
+      "id": "overlay",
+      "path": "runtime_assets/overlay/combined_overlay.jsonl.gz",
+      "runtime_path": "outputs/diffusiondrive_v1/route_preview_v11/20261024_frame_recovery/candidate_index/combined_overlay.jsonl",
+      "bytes": 552304744,
+      "sha256": "f575d971f361883cf915946d9f1a1f8a1ead92f2db72e0c80ccefd1b4586ed53",
+      "distribution": "regular-git-gzip",
+      "role": "frozen Status training-index generator input: --overlay",
+      "declared_in": "outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_dataset_manifest.json:/sources/overlay",
+      "profiles": [
+        "r2"
+      ],
+      "runtime_scope": "transitive provenance/input regeneration; cached Status training consumes the derived index and route-split paired manifest",
+      "verification": "decompressed full-file SHA and size match the frozen source; original payload bytes unchanged",
+      "compression": "gzip",
+      "stored_bytes": 45321084,
+      "stored_sha256": "0ac2cf57e9673527d91942490f656ae7dbe2498d511cc7972f5726053f8300e7"
+    },
+    {
+      "id": "pair_index",
+      "path": "runtime_assets/pair_index/index.sqlite.gz",
+      "runtime_path": "analysis/diffusiondrive_b2d_architecture/v1_validation/full_target_recovery/acceptance_20261019/multi_producer_manifest_index/index.sqlite",
+      "bytes": 128352256,
+      "sha256": "755626070fa6250915a422ae056702219c69d0c65407cfd5d1279caec32e3392",
+      "distribution": "regular-git-gzip",
+      "role": "frozen Status training-index generator input: --pair-index",
+      "declared_in": "outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_dataset_manifest.json:/sources/pair_index",
+      "profiles": [
+        "r2"
+      ],
+      "runtime_scope": "transitive provenance/input regeneration; cached Status training consumes the derived index and route-split paired manifest",
+      "verification": "decompressed full-file SHA and size match the frozen source; original payload bytes unchanged",
+      "compression": "gzip",
+      "stored_bytes": 50397438,
+      "stored_sha256": "89274225d04e956de6798257df40670e7c083896d0eacc1174aab32618a1da33"
+    },
+    {
+      "id": "defect_exclusion",
+      "path": "runtime_assets/defect_exclusion/geometry_defect_exclusion.json",
+      "runtime_path": "outputs/diffusiondrive_v1/route_preview_v11/20261023_status_integration/navigation/geometry_defect_exclusion.json",
+      "bytes": 8905,
+      "sha256": "18a8aec11324057457c9893ccdf04b8ffe910ef28ac530e1a521982abfef1fc6",
+      "distribution": "regular-git",
+      "role": "frozen Status training-index generator input: --defect-exclusion",
+      "declared_in": "outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_dataset_manifest.json:/sources/defect_exclusion",
+      "profiles": [
+        "r2"
+      ],
+      "runtime_scope": "transitive provenance/input regeneration; cached Status training consumes the derived index and route-split paired manifest",
+      "verification": "original full-file SHA and source stat stability verified; copied without reserialization"
+    },
+    {
+      "id": "exclusion_intervals",
+      "path": "runtime_assets/exclusion_intervals/anomaly_interval_index.jsonl",
+      "runtime_path": "outputs/diffusiondrive_v1/route_preview_v11/20261023_route_validation_v1/anomaly_interval_index.jsonl",
+      "bytes": 923637,
+      "sha256": "998f01f13377253a563b21b2a10f857a91304ecca310d7073420a6b145fec562",
+      "distribution": "regular-git",
+      "role": "frozen Status training-index generator input: --exclusion-intervals",
+      "declared_in": "outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_dataset_manifest.json:/sources/exclusion_intervals",
+      "profiles": [
+        "r2"
+      ],
+      "runtime_scope": "transitive provenance/input regeneration; cached Status training consumes the derived index and route-split paired manifest",
+      "verification": "original full-file SHA and source stat stability verified; copied without reserialization"
     }
   ],
   "config_files": [
@@ -2123,7 +2189,23 @@
     "JSON SHA fields include lineage/record-only values as well as enforced checks; source consumers decide enforcement.",
     "Source files, configs, upstream patches and license copies remain at their existing versioned paths; no duplicate source tree is bundled.",
     "The anchor copy must be restored to runtime_path before existing entry points use it; the new folder is not an automatic path fallback.",
-    "All large weights, data, caches, SQLite/JSONL indices, machine registrations and experiment checkpoints remain external; this is not a complete remote-training bundle.",
-    "GPU execution, actual R2 checkpoint restore and CARLA acceptance remain UNVERIFIED."
-  ]
+    "Weights, data, caches, derived training indices, machine registrations and experiment checkpoints remain external; this is not a complete remote-training bundle.",
+    "GPU execution, actual R2 checkpoint restore and CARLA acceptance remain UNVERIFIED.",
+    "Four frozen source inputs are now bundled; overlay and original pair index use lossless gzip. Original payload bytes, source paths and all old expected SHA pins remain unchanged.",
+    "overlay/pair_index use deterministic gzip in ordinary Git; bytes/sha256 describe the original payload, stored_bytes/stored_sha256 describe the archive; restore before runtime use. No Git LFS dependency."
+  ],
+  "selection_source_manifest": {
+    "runtime_path": "outputs/diffusiondrive_v1/route_preview_v11/20261024_training_cleanup/split_seed0_801010/status_training_dataset_manifest.json",
+    "sha256": "42f65ca7859f3a130d8915f1bee492252c44f428a352a0030109875d642a175f",
+    "schema": "status-training-dataset-manifest-v1",
+    "version": "status-training-v2-recovery-candidate-20261024",
+    "source_fields": [
+      "overlay",
+      "pair_index",
+      "defect_exclusion",
+      "exclusion_intervals"
+    ],
+    "note": "Only these four original generator inputs are added. The derived 114,024,448-byte route-split paired_index.sqlite and 185,252,441-byte sample index remain separate external resources."
+  },
+  "asset_publication_base_commit": "d2b32688f45922b58c945340999c70d627904841"
 }

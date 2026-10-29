@@ -1,0 +1,290 @@
+{
+  "schema": "geometry-defect-exclusion-v1",
+  "source_audit": "/home/aethelind/work/e2e_ad/outputs/diffusiondrive_v1/route_preview_v11/20261023_status_integration/navigation/full_route_geometry_audit.jsonl",
+  "defect_route_count": 12,
+  "defect_routes": [
+    {
+      "route": "Accident_Town12_Route18939_Weather18_02-11-01-13-23",
+      "issues": [
+        "rebuilt_segment_geometry_mismatch:0",
+        "center_join_gap_exceeded:0",
+        "rebuilt_segment_geometry_mismatch:1",
+        "center_join_gap_exceeded:1",
+        "rebuilt_segment_geometry_mismatch:2",
+        "center_join_gap_exceeded:2"
+      ],
+      "preview_frames": 179,
+      "preview_valid": 179,
+      "max_center_join_gap_m": 415.534,
+      "max_length_to_ego_arc_ratio": 542.895,
+      "worst_segment_points": 30513,
+      "worst_segment_length_m": 26307.071,
+      "worst_segment_ego_arc_m": 48.457,
+      "rows": 137,
+      "candidates": 137,
+      "invalid": 0,
+      "train_candidates": 137,
+      "validation_candidates": 0
+    },
+    {
+      "route": "Accident_Town15_Route25208_Weather13_02-05-13-22-14",
+      "issues": [
+        "rebuilt_segment_geometry_mismatch:0",
+        "center_join_gap_exceeded:0",
+        "rebuilt_segment_geometry_mismatch:1",
+        "center_join_gap_exceeded:1",
+        "rebuilt_segment_geometry_mismatch:2",
+        "center_join_gap_exceeded:2"
+      ],
+      "preview_frames": 219,
+      "preview_valid": 216,
+      "max_center_join_gap_m": 345.043,
+      "max_length_to_ego_arc_ratio": 906.998,
+      "worst_segment_points": 47591,
+      "worst_segment_length_m": 47020.039,
+      "worst_segment_ego_arc_m": 51.841,
+      "rows": 177,
+      "candidates": 174,
+      "invalid": 3,
+      "train_candidates": 174,
+      "validation_candidates": 0
+    },
+    {
+      "route": "HighwayCutIn_Town15_Route27433_Weather17_02-06-04-26-36",
+      "issues": [
+        "rebuilt_segment_count_mismatch",
+        "rebuilt_segment_geometry_mismatch:0",
+        "center_join_gap_exceeded:0"
+      ],
+      "preview_frames": 143,
+      "preview_valid": 65,
+      "max_center_join_gap_m": 88.199,
+      "max_length_to_ego_arc_ratio": 136.528,
+      "worst_segment_points": 3851,
+      "worst_segment_length_m": 3788.537,
+      "worst_segment_ego_arc_m": 27.749,
+      "rows": 99,
+      "candidates": 23,
+      "invalid": 76,
+      "train_candidates": 23,
+      "validation_candidates": 0
+    },
+    {
+      "route": "InterurbanActorFlow_Town13_Route23918_Weather14_02-07-13-34-47",
+      "issues": [
+        "rebuilt_segment_geometry_mismatch:0",
+        "center_join_gap_exceeded:0",
+        "rebuilt_segment_geometry_mismatch:1",
+        "center_join_gap_exceeded:1"
+      ],
+      "preview_frames": 162,
+      "preview_valid": 54,
+      "max_center_join_gap_m": 340.44,
+      "max_length_to_ego_arc_ratio": 988.543,
+      "worst_segment_points": 14154,
+      "worst_segment_length_m": 13772.962,
+      "worst_segment_ego_arc_m": 26.124,
+      "rows": 102,
+      "candidates": 14,
+      "invalid": 88,
+      "train_candidates": 14,
+      "validation_candidates": 0
+    },
+    {
+      "route": "InterurbanActorFlow_Town13_Route24103_Weather17_02-08-03-33-59",
+      "issues": [
+        "rebuilt_segment_geometry_mismatch:0",
+        "center_join_gap_exceeded:0"
+      ],
+      "preview_frames": 156,
+      "preview_valid": 49,
+      "max_center_join_gap_m": 340.44,
+      "max_length_to_ego_arc_ratio": 403.597,
+      "worst_segment_points": 12132,
+      "worst_segment_length_m": 11756.762,
+      "worst_segment_ego_arc_m": 29.13,
+      "rows": 102,
+      "candidates": 9,
+      "invalid": 93,
+      "train_candidates": 9,
+      "validation_candidates": 0
+    },
+    {
+      "route": "MergerIntoSlowTraffic_Town13_Route24141_Weather11_02-10-18-39-17",
+      "issues": [
+        "rebuilt_segment_geometry_mismatch:0",
+        "center_join_gap_exceeded:0"
+      ],
+      "preview_frames": 161,
+      "preview_valid": 141,
+      "max_center_join_gap_m": 675.556,
+      "max_length_to_ego_arc_ratio": 831.919,
+      "worst_segment_points": 24297,
+      "worst_segment_length_m": 23114.271,
+      "worst_segment_ego_arc_m": 27.784,
+      "rows": 119,
+      "candidates": 99,
+      "invalid": 20,
+      "train_candidates": 99,
+      "validation_candidates": 0
+    },
+    {
+      "route": "OppositeVehicleRunningRedLight_Town12_Route6020_Weather0_02-05-12-59-08",
+      "issues": [
+        "rebuilt_segment_count_mismatch",
+        "rebuilt_segment_geometry_mismatch:0",
+        "center_join_gap_exceeded:0"
+      ],
+      "preview_frames": 137,
+      "preview_valid": 60,
+      "max_center_join_gap_m": 321.678,
+      "max_length_to_ego_arc_ratio": 637.636,
+      "worst_segment_points": 18230,
+      "worst_segment_length_m": 17844.513,
+      "worst_segment_ego_arc_m": 27.985,
+      "rows": 95,
+      "candidates": 20,
+      "invalid": 75,
+      "train_candidates": 20,
+      "validation_candidates": 0
+    },
+    {
+      "route": "OppositeVehicleRunningRedLight_Town12_Route6020_Weather0_02-06-02-06-17",
+      "issues": [
+        "rebuilt_segment_count_mismatch",
+        "rebuilt_segment_geometry_mismatch:0",
+        "center_join_gap_exceeded:0"
+      ],
+      "preview_frames": 116,
+      "preview_valid": 63,
+      "max_center_join_gap_m": 321.678,
+      "max_length_to_ego_arc_ratio": 654.394,
+      "worst_segment_points": 18840,
+      "worst_segment_length_m": 18452.547,
+      "worst_segment_ego_arc_m": 28.198,
+      "rows": 74,
+      "candidates": 21,
+      "invalid": 53,
+      "train_candidates": 21,
+      "validation_candidates": 0
+    },
+    {
+      "route": "T_Junction_Town15_Route27803_Weather13_02-05-10-33-32",
+      "issues": [
+        "rebuilt_segment_count_mismatch",
+        "rebuilt_segment_geometry_mismatch:0"
+      ],
+      "preview_frames": 442,
+      "preview_valid": 338,
+      "max_center_join_gap_m": 0.0,
+      "max_length_to_ego_arc_ratio": 1.177,
+      "worst_segment_points": 185,
+      "worst_segment_length_m": 91.872,
+      "worst_segment_ego_arc_m": 78.046,
+      "rows": 96,
+      "candidates": 96,
+      "invalid": 0,
+      "train_candidates": 96,
+      "validation_candidates": 0
+    },
+    {
+      "route": "T_Junction_Town15_Route28202_Weather20_02-05-21-12-24",
+      "issues": [
+        "rebuilt_segment_count_mismatch",
+        "rebuilt_segment_geometry_mismatch:0",
+        "center_join_gap_exceeded:0"
+      ],
+      "preview_frames": 234,
+      "preview_valid": 58,
+      "max_center_join_gap_m": 2.1,
+      "max_length_to_ego_arc_ratio": 1.598,
+      "worst_segment_points": 81,
+      "worst_segment_length_m": 40.9,
+      "worst_segment_ego_arc_m": 25.598,
+      "rows": 0,
+      "candidates": 0,
+      "invalid": 0,
+      "train_candidates": 0,
+      "validation_candidates": 0
+    },
+    {
+      "route": "VanillaNonSignalizedTurn_Town13_Route3900_Weather18_02-08-04-04-18",
+      "issues": [
+        "rebuilt_segment_count_mismatch",
+        "rebuilt_segment_geometry_mismatch:0",
+        "center_join_gap_exceeded:0"
+      ],
+      "preview_frames": 106,
+      "preview_valid": 38,
+      "max_center_join_gap_m": 165.587,
+      "max_length_to_ego_arc_ratio": 304.699,
+      "worst_segment_points": 4141,
+      "worst_segment_length_m": 3945.924,
+      "worst_segment_ego_arc_m": 12.95,
+      "rows": 64,
+      "candidates": 0,
+      "invalid": 64,
+      "train_candidates": 0,
+      "validation_candidates": 0
+    },
+    {
+      "route": "YieldToEmergencyVehicle_Town15_Route25558_Weather13_02-12-14-34-42",
+      "issues": [
+        "rebuilt_segment_geometry_mismatch:3",
+        "center_join_gap_exceeded:3",
+        "rebuilt_segment_geometry_mismatch:4",
+        "center_join_gap_exceeded:4"
+      ],
+      "preview_frames": 160,
+      "preview_valid": 160,
+      "max_center_join_gap_m": 150.93,
+      "max_length_to_ego_arc_ratio": 261.753,
+      "worst_segment_points": 10001,
+      "worst_segment_length_m": 9422.518,
+      "worst_segment_ego_arc_m": 35.998,
+      "rows": 118,
+      "candidates": 118,
+      "invalid": 0,
+      "train_candidates": 118,
+      "validation_candidates": 0
+    }
+  ],
+  "candidate_counts": {
+    "before_exclusion": {
+      "train": 199279,
+      "validation": 6408,
+      "total": 205687
+    },
+    "excluded": {
+      "train": 711,
+      "validation": 0,
+      "total": 711
+    },
+    "after_exclusion": {
+      "train": 198568,
+      "validation": 6408,
+      "total": 204976
+    }
+  },
+  "row_counts": {
+    "before_exclusion": {
+      "train": 210776,
+      "validation": 7846
+    },
+    "after_exclusion": {
+      "train": 209593,
+      "validation": 7846
+    }
+  },
+  "defect_row_totals": {
+    "rows": 1183,
+    "candidates": 711,
+    "invalid": 472
+  },
+  "policy": {
+    "existing_preview_modified": false,
+    "existing_overlay_modified": false,
+    "usage": "downstream filters must exclude these routes until a versioned repair passes audit",
+    "candidate_is_not_certified_sample": true
+  }
+}

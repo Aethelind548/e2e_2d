@@ -7,3 +7,9 @@ tools/release/patches/*.patch -text -whitespace
 /runtime_assets/manifest.json text eol=lf
 /runtime_assets/README.md text eol=lf
 /runtime_assets/SHA256SUMS text eol=lf
+
+# Frozen selection inputs: deterministic gzip preserves original payload bytes.
+/runtime_assets/overlay/combined_overlay.jsonl.gz -text -diff
+/runtime_assets/pair_index/index.sqlite.gz -text -diff
+/runtime_assets/defect_exclusion/geometry_defect_exclusion.json -text
+/runtime_assets/exclusion_intervals/anomaly_interval_index.jsonl -text
