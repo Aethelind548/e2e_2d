@@ -1,3 +1,9 @@
 # Preserve upstream patch bytes, including their original context whitespace.
 # Project source files retain the normal whitespace checks.
 tools/release/patches/*.patch -text -whitespace
+
+# Preserve fixed-asset and checksum bytes on every platform.
+/runtime_assets/official_kmeans_navsim_traj_20.npy -text
+/runtime_assets/manifest.json text eol=lf
+/runtime_assets/README.md text eol=lf
+/runtime_assets/SHA256SUMS text eol=lf

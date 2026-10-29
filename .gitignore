@@ -106,3 +106,6 @@ htmlcov/
 /tools/validation/b2d_adapter/validate_v1_m5.py
 /tools/validation/b2d_adapter/validate_v1_training_preparation.py
 /tools/validation/b2d_adapter/verify_system_feature_relocation.py
+
+# Reviewed small fixed trajectory prior; other arrays/weights remain excluded.
+!/runtime_assets/official_kmeans_navsim_traj_20.npy

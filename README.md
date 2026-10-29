@@ -6,12 +6,13 @@
 > **不包含：** 数据/模型资源分发、历史实验重写或已完成闭环的声明。
 > **当前状态：** 发布重构；服务器恢复与Agent闭环尚未验收。
 > **相关代码：** tools/、agent/、tests/、repositories/DiffusionDrive/。
-> **最后更新：** 2026-10-28。
+> **最后更新：** 2026-10-29。
 
 模型主线为官方DiffusionDrive V1，网络类名仍是V2TransfuserModel。Baseline使用fit.py；R2使用独立Status入口，包含专家路线Status、EMA、参数组LR与BEV权重实验，保持各自数据/源码/Checkpoint合同。Agent真实模型初始化与在线特征仍未完成。
 
 | 内容 | 入口 |
 | --- | --- |
+| SHA 固定小型资产与必要文件清单 | [运行资产](runtime_assets/README.md) |
 | 环境、实际验证过的CLI与CPU回归 | [快速启动](快速启动.md) |
 | 训练状态记录及实时状态边界 | [TRAINING_STATUS.md](TRAINING_STATUS.md) |
 | 训练/恢复合同与实验索引 | [训练主文档](tools/training/README.md) |
